@@ -100,6 +100,14 @@ h1 em{font-style:normal;color:var(--sea)}
 .tag.nature{border-color:var(--ink);color:var(--ink)}
 .tag.clash{border-color:var(--signal);color:var(--signal)}
 
+.star{background:none;border:none;cursor:pointer;font-size:19px;line-height:1;padding:2px 4px;
+  color:var(--hair);transition:color .15s ease}
+.star:hover{color:var(--ochre)}
+.star[aria-pressed="true"]{color:var(--sea)}
+.subscribe{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:14px 0 0;
+  border-top:1px solid var(--hair);margin-top:14px}
+.subscribe .lede{font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--graphite);width:100%;margin-bottom:2px}
 .right-cell{text-align:right;min-width:96px}
 .pill{display:inline-block;font-family:var(--mono);font-size:10px;
   letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:2px;
@@ -197,6 +205,18 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--hair);
 <div class="controls">
   <div class="chips" id="chips"></div>
   <div class="count" id="resultCount"></div>
+</div>
+
+<div class="subscribe" id="mybar" style="display:none">
+  <span class="lede">Your saved events</span>
+  <span class="count" id="mycount" style="margin:0"></span>
+  <button class="btn" id="mine-ics">Add saved events to calendar</button>
+</div>
+
+<div class="subscribe">
+  <span class="lede">Subscribe once, stays up to date</span>
+  <a class="btn primary" href="webcal://abdullahmsalama.github.io/egypt-fitness-calendar/egypt-fitness.ics">Subscribe in Apple Calendar</a>
+  <a class="btn" href="https://calendar.google.com/calendar/r/settings/addbyurl" target="_blank" rel="noopener">Add to Google Calendar \u2197</a>
 </div>
 
 <main id="list"></main>
@@ -639,30 +659,76 @@ document.getElementById("deadlines").innerHTML = dl.length ? dl.map(e=>`
   : `<div class="dl"><div class="e">No published deadlines in range.</div></div>`;
 
 /* filters */
-const FILTERS=[["all","All events"],["open","Open now"],["team","Team option"],["hybrid","Hybrid"],["strength","Strength & CrossFit"],["ocr","Obstacle"],["road","Road"],["trail","Trail"],["cycling","Cycling"],["swim","Swimming"],["tri","Triathlon"]];
+const FILTERS=[["all","All events"],["mine","\u2605 My list"],["open","Open now"],["team","Team option"],["hybrid","Hybrid"],["strength","Strength & CrossFit"],["ocr","Obstacle"],["road","Road"],["trail","Trail"],["cycling","Cycling"],["swim","Swimming"],["tri","Triathlon"]];
 let active="all";
 document.getElementById("chips").innerHTML=FILTERS.map(([k,l])=>
   `<button class="chip" data-f="${k}" aria-pressed="${k==='all'}">${l}</button>`).join("");
 
 function matches(e){
   if(active==="all") return true;
+  if(active==="mine") return saved.has(e.id);
   if(active==="open") return e.status==="open";
   if(active==="team") return !!e.team;
   return e.cat===active;
 }
 
-function icsFor(e){
+const STORE="egyptFitness:interested";
+let saved=new Set();
+try{saved=new Set(JSON.parse(localStorage.getItem(STORE)||"[]"));}catch(err){saved=new Set();}
+function persist(){try{localStorage.setItem(STORE,JSON.stringify([...saved]));}catch(err){}}
+
+function pad(x){return String(x).padStart(2,"0");}
+function ymd(dt){return dt.getFullYear()+pad(dt.getMonth()+1)+pad(dt.getDate());}
+function esc(t){return String(t).replace(/\\/g,"\\\\").replace(/;/g,"\\;").replace(/,/g,"\\,").replace(/\n/g,"\\n");}
+
+function vevent(e){
   const start=e.date.replace(/-/g,"");
   const endD=new Date(d(e.dateEnd||e.date)); endD.setDate(endD.getDate()+1);
-  const end=endD.toISOString().slice(0,10).replace(/-/g,"");
-  const body=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Egypt Race Calendar//EN","BEGIN:VEVENT",
-    "UID:"+e.id+"@egypt-race-calendar","DTSTART;VALUE=DATE:"+start,"DTEND;VALUE=DATE:"+end,
-    "SUMMARY:"+e.name,"LOCATION:"+e.location.replace(/,/g,"\\,"),
-    "DESCRIPTION:"+(e.nature+" — "+(e.links[0]?e.links[0].url:"")).replace(/,/g,"\\,"),
-    "END:VEVENT","END:VCALENDAR"].join("\r\n");
-  const url=URL.createObjectURL(new Blob([body],{type:"text/calendar"}));
-  const a=document.createElement("a"); a.href=url; a.download=e.id+".ics"; a.click();
-  setTimeout(()=>URL.revokeObjectURL(url),1500);
+  const url=e.links[0]?e.links[0].url:"";
+  const desc=e.nature+" · "+CATS[e.cat]+(e.closes?"\\nRegistration closes "+fmt(e.closes):"")+(url?"\\n"+url:"");
+  const out=["BEGIN:VEVENT","UID:"+e.id+"@egypt-fitness-events",
+    "DTSTAMP:"+ymd(new Date())+"T000000Z",
+    "DTSTART;VALUE=DATE:"+start,"DTEND;VALUE=DATE:"+ymd(endD),
+    "SUMMARY:"+esc(e.name),"LOCATION:"+esc(e.location),"DESCRIPTION:"+desc];
+  if(url) out.push("URL:"+url);
+  out.push("BEGIN:VALARM","TRIGGER:-P7D","ACTION:DISPLAY","DESCRIPTION:"+esc(e.name)+" in one week","END:VALARM");
+  out.push("BEGIN:VALARM","TRIGGER:-P1D","ACTION:DISPLAY","DESCRIPTION:"+esc(e.name)+" tomorrow","END:VALARM");
+  out.push("END:VEVENT");
+  if(e.closes){
+    const c=e.closes.replace(/-/g,"");
+    const cEnd=new Date(d(e.closes)); cEnd.setDate(cEnd.getDate()+1);
+    out.push("BEGIN:VEVENT","UID:"+e.id+"-close@egypt-fitness-events",
+      "DTSTAMP:"+ymd(new Date())+"T000000Z",
+      "DTSTART;VALUE=DATE:"+c,"DTEND;VALUE=DATE:"+ymd(cEnd),
+      "SUMMARY:"+esc("Registration closes: "+e.name),
+      "DESCRIPTION:"+(url?url:""),
+      "BEGIN:VALARM","TRIGGER:-P7D","ACTION:DISPLAY","DESCRIPTION:"+esc(e.name)+" registration closes in a week","END:VALARM",
+      "BEGIN:VALARM","TRIGGER:-P1D","ACTION:DISPLAY","DESCRIPTION:"+esc(e.name)+" registration closes tomorrow","END:VALARM",
+      "END:VEVENT");
+  }
+  return out;
+}
+function wrapCal(lines){
+  return ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Egypt Fitness Events//EN","CALSCALE:GREGORIAN",
+    "METHOD:PUBLISH","X-WR-CALNAME:Egypt Fitness Events","X-WR-TIMEZONE:Africa/Cairo",
+    ...lines,"END:VCALENDAR"].join("\r\n");
+}
+function downloadIcs(events,filename){
+  const body=wrapCal(events.flatMap(vevent));
+  const url=URL.createObjectURL(new Blob([body],{type:"text/calendar;charset=utf-8"}));
+  const a=document.createElement("a"); a.href=url; a.download=filename; a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),2000);
+}
+function googleUrl(e){
+  const start=e.date.replace(/-/g,"");
+  const endD=new Date(d(e.dateEnd||e.date)); endD.setDate(endD.getDate()+1);
+  const url=e.links[0]?e.links[0].url:"";
+  const det=e.nature+" · "+CATS[e.cat]+(e.closes?"\nRegistration closes "+fmt(e.closes):"")+(url?"\n"+url:"");
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE"
+    +"&text="+encodeURIComponent(e.name)
+    +"&dates="+start+"/"+ymd(endD)
+    +"&details="+encodeURIComponent(det)
+    +"&location="+encodeURIComponent(e.location);
 }
 
 function block(title,content){
@@ -705,7 +771,7 @@ function render(){
         ${e._clash?`<span class="tag clash">${e._clash}</span>`:``}
       </div>
     </div>
-    <div class="right-cell">${pill}${cd}<div class="chev"><span></span></div></div>
+    <div class="right-cell">${pill}${cd}<div class="chev"><span></span><button class="star" data-star="${e.id}" aria-pressed="${saved.has(e.id)}" title="Mark as interested">${saved.has(e.id)?"\u2605":"\u2606"}</button></div></div>
   </summary>
   <div class="detail">
     <div class="perf"></div>
@@ -727,7 +793,7 @@ function render(){
           </div>
           <div class="links">
             ${e.links.map(l=>`<a class="btn ${l.primary?"primary":""}" href="${l.url}" target="_blank" rel="noopener">${l.label} ↗</a>`).join("")}
-            <button class="btn" data-ics="${e.id}">Add to calendar</button>
+            <a class="btn" href="${googleUrl(e)}" target="_blank" rel="noopener">Google Calendar \u2197</a><button class="btn" data-ics="${e.id}">Apple / Outlook</button>
           </div>
           <div class="prov">
             <span class="badge ${e.verified?"v":"p"}">${e.verified?"Verified on organiser site":"Secondary source only"}</span>
@@ -748,8 +814,35 @@ document.getElementById("chips").addEventListener("click",ev=>{
   render();
 });
 document.getElementById("list").addEventListener("click",ev=>{
+  const st=ev.target.closest("[data-star]");
+  if(st){
+    ev.preventDefault(); ev.stopPropagation();
+    const id=st.dataset.star;
+    if(saved.has(id)) saved.delete(id); else saved.add(id);
+    persist();
+    st.setAttribute("aria-pressed",saved.has(id));
+    st.textContent=saved.has(id)?"\u2605":"\u2606";
+    syncMine();
+    return;
+  }
   const b=ev.target.closest("[data-ics]"); if(!b) return;
-  ev.preventDefault(); icsFor(EVENTS.find(x=>x.id===b.dataset.ics));
+  ev.preventDefault();
+  const e=EVENTS.find(x=>x.id===b.dataset.ics);
+  downloadIcs([e],e.id+".ics");
+});
+
+function syncMine(){
+  const n=upcoming.filter(e=>saved.has(e.id)).length;
+  const chip=document.querySelector('.chip[data-f="mine"]');
+  if(chip) chip.textContent = n ? "\u2605 My list ("+n+")" : "\u2605 My list";
+  const bar=document.getElementById("mybar");
+  bar.style.display = n ? "flex" : "none";
+  document.getElementById("mycount").textContent = n===1 ? "1 event saved" : n+" events saved";
+  if(active==="mine") render();
+}
+document.getElementById("mine-ics").addEventListener("click",()=>{
+  const list=upcoming.filter(e=>saved.has(e.id));
+  if(list.length) downloadIcs(list,"my-fitness-events.ics");
 });
 
 document.getElementById("watchlist").innerHTML=WATCH.map(w=>`
@@ -761,6 +854,7 @@ document.getElementById("watchlist").innerHTML=WATCH.map(w=>`
   </div>`).join("");
 
 render();
+syncMine();
 </script>
 </body>
 </html>

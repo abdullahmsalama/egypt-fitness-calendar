@@ -1,0 +1,605 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Egypt Fitness Events//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Egypt Fitness Events
+X-WR-CALDESC:Fitness, running, hybrid and endurance events in Egypt
+X-WR-TIMEZONE:Africa/Cairo
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+BEGIN:VEVENT
+UID:alphax-cairo-stadium@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20261024
+DTEND;VALUE=DATE:20261025
+SUMMARY:AlphaX Cairo Stadium
+LOCATION:Cairo International Stadium\, Nasr City
+DESCRIPTION:Hybrid race · Hybrid fitness\nhttps://competitioncorner.net/events/21927
+URL:https://competitioncorner.net/events/21927
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:AlphaX Cairo Stadium in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:AlphaX Cairo Stadium tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:aquaman-somabay@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20261029
+DTEND;VALUE=DATE:20261101
+SUMMARY:Aquaman Somabay
+LOCATION:Somabay\, Red Sea
+DESCRIPTION:Open water swim · Swimming\nhttps://www.aquaman.co/races-aquamanaswan
+URL:https://www.aquaman.co/races-aquamanaswan
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:Aquaman Somabay in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Aquaman Somabay tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:cmas-finswimming@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20261030
+DTEND;VALUE=DATE:20261105
+SUMMARY:CMAS Finswimming Open Water World Championship
+LOCATION:Sharm El Maya Bay\, Sharm El Sheikh
+DESCRIPTION:Finswimming worlds · Swimming\nhttps://www.finswimmer.com/2026-cmas-world-championship-finswimming-open-water/
+URL:https://www.finswimmer.com/2026-cmas-world-championship-finswimming-open-water/
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:CMAS Finswimming Open Water World Championship in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:CMAS Finswimming Open Water World Championship tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:elfit-2026@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20261119
+DTEND;VALUE=DATE:20261123
+SUMMARY:ELFIT Fitness Games
+LOCATION:New Capital Sports City
+DESCRIPTION:Multi-sport games · Strength & CrossFit\nhttps://www.elfiteg.com/
+URL:https://www.elfiteg.com/
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:ELFIT Fitness Games in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:ELFIT Fitness Games tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:galala-10@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20261106
+DTEND;VALUE=DATE:20261107
+SUMMARY:Galala Challenge X
+LOCATION:Starts at District 5\, Cairo — Ain Sokhna and Galala Mountain roads
+DESCRIPTION:Road cycling · Cycling\nhttps://galalachallenge.com/event/galala-challenge-10th-edition-a-milestone-worth-riding-for/
+URL:https://galalachallenge.com/event/galala-challenge-10th-edition-a-milestone-worth-riding-for/
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:Galala Challenge X in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Galala Challenge X tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:ice-warrior-5@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20260912
+DTEND;VALUE=DATE:20260913
+SUMMARY:Ice Warrior Challenge V
+LOCATION:Ski Egypt\, Mall of Egypt\, 6th October
+DESCRIPTION:Snow obstacles · Obstacle\nhttps://www.ticketsmarche.com/event/9011
+URL:https://www.ticketsmarche.com/event/9011
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:Ice Warrior Challenge V in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Ice Warrior Challenge V tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:back-to-school@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20260918
+DTEND;VALUE=DATE:20260919
+SUMMARY:Back to School Run
+LOCATION:Hyde Out\, Hyde Park\, New Cairo
+DESCRIPTION:Family fun run · Road running\nhttps://www.cairorunners.com/portfolio/back-to-school-run/
+URL:https://www.cairorunners.com/portfolio/back-to-school-run/
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:Back to School Run in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Back to School Run tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:zamalek-5k@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20260925
+DTEND;VALUE=DATE:20260926
+SUMMARY:Zamalek 5K Run
+LOCATION:Mamsha Ahl Misr\, Zamalek — entry next to Blue Nile
+DESCRIPTION:Charity 5K · Road running\nhttps://www.thetrifactory.com/zamalek5krun
+URL:https://www.thetrifactory.com/zamalek5krun
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:Zamalek 5K Run in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Zamalek 5K Run tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:athletix-games@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20261003
+DTEND;VALUE=DATE:20261004
+SUMMARY:Athletix Games
+LOCATION:New Cairo — other venues possible
+DESCRIPTION:CrossFit & hybrid · Strength & CrossFit\nhttps://www.instagram.com/athletix.egy/
+URL:https://www.instagram.com/athletix.egy/
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:Athletix Games in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Athletix Games tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:marassi-hybrid@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20261008
+DTEND;VALUE=DATE:20261009
+SUMMARY:Marassi Hybrid Race
+LOCATION:Marassi\, North Coast
+DESCRIPTION:Hybrid race · Hybrid fitness\nhttps://alphaxrace.com/
+URL:https://alphaxrace.com/
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:Marassi Hybrid Race in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Marassi Hybrid Race tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:marassi-endurance@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20261010
+DTEND;VALUE=DATE:20261011
+SUMMARY:Marassi Endurance Festival
+LOCATION:Marassi Marina\, North Coast
+DESCRIPTION:Triathlon & aquathlon · Triathlon · Registration closes 5 Oct 2026\nhttps://www.thetrifactory.com/MarassiEndurancefestival
+URL:https://www.thetrifactory.com/MarassiEndurancefestival
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:Marassi Endurance Festival in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Marassi Endurance Festival tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:marassi-endurance-close@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20261005
+DTEND;VALUE=DATE:20261006
+SUMMARY:Registration closes: Marassi Endurance Festival
+DESCRIPTION:https://www.thetrifactory.com/MarassiEndurancefestival
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:Marassi Endurance Festival registration closes in a week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Marassi Endurance Festival registration closes tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:combat-games-2026@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20261015
+DTEND;VALUE=DATE:20261018
+SUMMARY:The Combat Games
+LOCATION:New Cairo
+DESCRIPTION:CrossFit competition · Strength & CrossFit\nhttps://circle21.events/combat
+URL:https://circle21.events/combat
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:The Combat Games in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:The Combat Games tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:im703-sharm@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20261016
+DTEND;VALUE=DATE:20261017
+SUMMARY:IRONMAN 70.3 Sharm El-Sheikh
+LOCATION:Naama Bay\, Sharm El-Sheikh
+DESCRIPTION:Half triathlon · Triathlon\nhttps://www.ironman.com/races/im703-sharm-el-sheikh
+URL:https://www.ironman.com/races/im703-sharm-el-sheikh
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:IRONMAN 70.3 Sharm El-Sheikh in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:IRONMAN 70.3 Sharm El-Sheikh tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:ultra-relay@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20261016
+DTEND;VALUE=DATE:20261018
+SUMMARY:Ultra Relay Run
+LOCATION:AUC running track\, New Cairo
+DESCRIPTION:24-hour relay · Road running\nhttps://www.thetrifactory.com/Ultrarelayrun
+URL:https://www.thetrifactory.com/Ultrarelayrun
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:Ultra Relay Run in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Ultra Relay Run tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:breast-cancer-run@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20261016
+DTEND;VALUE=DATE:20261017
+SUMMARY:Breast Cancer Run
+LOCATION:Cairo — venue announced closer to the date
+DESCRIPTION:Charity run · Road running\nhttps://www.cairorunners.com/our-runs/
+URL:https://www.cairorunners.com/our-runs/
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:Breast Cancer Run in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Breast Cancer Run tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:roody-50x@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20261024
+DTEND;VALUE=DATE:20261025
+SUMMARY:Roody 50x
+LOCATION:Wadi Degla Protectorate\, Cairo
+DESCRIPTION:Desert trail · Trail\nhttps://ultraibex.com/roody50x/
+URL:https://ultraibex.com/roody50x/
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:Roody 50x in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Roody 50x tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:sinai-exodus@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20261105
+DTEND;VALUE=DATE:20261106
+SUMMARY:Sinai Exodus Challenge
+LOCATION:Sinai
+DESCRIPTION:Mountain trail · Trail\nhttps://ultraibex.com/our-races/
+URL:https://ultraibex.com/our-races/
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:Sinai Exodus Challenge in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Sinai Exodus Challenge tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:alex-marathon@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20261106
+DTEND;VALUE=DATE:20261107
+SUMMARY:Alexandria Marathon
+LOCATION:Alexandria
+DESCRIPTION:Road marathon · Road running\nhttps://www.ahotu.com/calendar/running/egypt
+URL:https://www.ahotu.com/calendar/running/egypt
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:Alexandria Marathon in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Alexandria Marathon tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:diabetes-run@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20261113
+DTEND;VALUE=DATE:20261114
+SUMMARY:Diabetes Run
+LOCATION:Cairo — venue announced closer to the date
+DESCRIPTION:Charity run · Road running\nhttps://www.cairorunners.com/our-runs/
+URL:https://www.cairorunners.com/our-runs/
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:Diabetes Run in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Diabetes Run tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:hyrox-cairo@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20261114
+DTEND;VALUE=DATE:20261116
+SUMMARY:HYROX Cairo
+LOCATION:Egypt International Exhibition Center\, Hall 4\, Nasr City
+DESCRIPTION:Hybrid race · Hybrid fitness\nhttps://hyrox.com/event/hyrox-cairo/
+URL:https://hyrox.com/event/hyrox-cairo/
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:HYROX Cairo in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:HYROX Cairo tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:elgouna-half@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20261121
+DTEND;VALUE=DATE:20261122
+SUMMARY:El Gouna Half Marathon
+LOCATION:Abu Tig Marina\, El Gouna
+DESCRIPTION:Coastal road · Road running · Registration closes 3 Nov 2026\nhttps://www.elgounahalfmarathon.com/tickets
+URL:https://www.elgounahalfmarathon.com/tickets
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:El Gouna Half Marathon in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:El Gouna Half Marathon tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:elgouna-half-close@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20261103
+DTEND;VALUE=DATE:20261104
+SUMMARY:Registration closes: El Gouna Half Marathon
+DESCRIPTION:https://www.elgounahalfmarathon.com/tickets
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:El Gouna Half Marathon registration closes in a week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:El Gouna Half Marathon registration closes tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:sharm-half@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20261128
+DTEND;VALUE=DATE:20261129
+SUMMARY:Sharm El Sheikh Half Marathon
+LOCATION:Ras Mohamed National Park\, Sharm El Sheikh
+DESCRIPTION:Nature reserve · Road running\nhttps://www.egyptianmarathon.com/events
+URL:https://www.egyptianmarathon.com/events
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:Sharm El Sheikh Half Marathon in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Sharm El Sheikh Half Marathon tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:wadi-rayan@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20261203
+DTEND;VALUE=DATE:20261204
+SUMMARY:Wadi Rayan Desert Challenge
+LOCATION:Wadi Rayan\, Fayoum
+DESCRIPTION:Desert trail · Trail\nhttps://ultraibex.com/our-races/
+URL:https://ultraibex.com/our-races/
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:Wadi Rayan Desert Challenge in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Wadi Rayan Desert Challenge tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:unstoppable-run@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20261211
+DTEND;VALUE=DATE:20261212
+SUMMARY:The Unstoppable Run
+LOCATION:Cairo — venue announced closer to the date
+DESCRIPTION:Inclusive run · Road running\nhttps://www.cairorunners.com/our-runs/
+URL:https://www.cairorunners.com/our-runs/
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:The Unstoppable Run in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:The Unstoppable Run tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:pyramids-half@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20261211
+DTEND;VALUE=DATE:20261213
+SUMMARY:Marakez Pyramids Half Marathon
+LOCATION:Giza Plateau — start and finish at the Pyramids visitor centre
+DESCRIPTION:Flagship road · Road running · Registration closes 2 Nov 2026\nhttps://www.thetrifactory.com/MarakezPyramidsHalfMarathon2026
+URL:https://www.thetrifactory.com/MarakezPyramidsHalfMarathon2026
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:Marakez Pyramids Half Marathon in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Marakez Pyramids Half Marathon tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:pyramids-half-close@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20261102
+DTEND;VALUE=DATE:20261103
+SUMMARY:Registration closes: Marakez Pyramids Half Marathon
+DESCRIPTION:https://www.thetrifactory.com/MarakezPyramidsHalfMarathon2026
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:Marakez Pyramids Half Marathon registration closes in a week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Marakez Pyramids Half Marathon registration closes tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:luxor-marathon@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20270108
+DTEND;VALUE=DATE:20270109
+SUMMARY:Egyptian Marathon\, Luxor
+LOCATION:Hatshepsut Temple\, Luxor
+DESCRIPTION:Historic marathon · Road running\nhttps://www.egyptianmarathon.net/
+URL:https://www.egyptianmarathon.net/
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:Egyptian Marathon\, Luxor in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Egyptian Marathon\, Luxor tomorrow
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:ironstar@egypt-fitness-events
+DTSTAMP:20260920T000000Z
+DTSTART;VALUE=DATE:20270205
+DTEND;VALUE=DATE:20270207
+SUMMARY:IRONSTAR Egypt
+LOCATION:Sharm El Sheikh
+DESCRIPTION:Triathlon · Triathlon\nhttps://www.ahotu.com/calendar/running/egypt
+URL:https://www.ahotu.com/calendar/running/egypt
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:IRONSTAR Egypt in one week
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:IRONSTAR Egypt tomorrow
+END:VALARM
+END:VEVENT
+END:VCALENDAR
