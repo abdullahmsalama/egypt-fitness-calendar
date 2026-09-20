@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Egypt Fitness Events</title>
+<title>Egypt Fitness Events — PwC ETIC Wellness Committee</title>
 <style>
 :root{
   --paper:#FFFFFF;
@@ -100,8 +100,13 @@ h1 em{font-style:normal;color:var(--sea)}
 .tag.nature{border-color:var(--ink);color:var(--ink)}
 .tag.clash{border-color:var(--signal);color:var(--signal)}
 
-.star{background:none;border:none;cursor:pointer;font-size:19px;line-height:1;padding:2px 4px;
-  color:var(--hair);transition:color .15s ease}
+.star{background:none;border:none;cursor:pointer;font-size:30px;line-height:1;padding:0 2px;
+  color:var(--hair);transition:color .15s ease,transform .12s ease;display:block;margin:8px 0 0 auto}
+.star:active{transform:scale(.88)}
+.star-btn{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  padding:8px 13px;border:1px solid var(--sea);border-radius:2px;background:transparent;
+  color:var(--sea);cursor:pointer}
+.star-btn[aria-pressed="true"]{background:var(--sea);color:#fff}
 .star:hover{color:var(--ochre)}
 .star[aria-pressed="true"]{color:var(--sea)}
 .subscribe{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:14px 0 0;
@@ -185,10 +190,10 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--hair);
 <div class="wrap">
 
 <header class="top">
-  <div class="kicker">Season 2026 – 2027</div>
+  <div class="kicker">PwC ETIC · Wellness Committee</div>
   <h1>Egypt <em>Fitness</em> Events</h1>
   <p class="standfirst">Running, hybrid, CrossFit, strength, obstacle, cycling, swimming, climbing and triathlon — every event in Egypt we can verify, ordered by date. Open a row for format, cost, and whether it suits a first-timer or a repeat competitor.</p>
-  <div class="byline">Compiled by <b>Abdullah Salama</b></div>
+  <div class="byline">Compiled by <b>Abdullah Salama</b> · Wellness Committee, PwC ETIC</div>
   <div class="meta-row">
     <span>Today <b id="today"></b></span>
     <span>Sources last checked <b>1 Sep 2026</b></span>
@@ -208,15 +213,17 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--hair);
 </div>
 
 <div class="subscribe" id="mybar" style="display:none">
-  <span class="lede">Your saved events</span>
+  <span class="lede">★ Your saved events only</span>
   <span class="count" id="mycount" style="margin:0"></span>
-  <button class="btn" id="mine-ics">Add saved events to calendar</button>
+  <button class="btn" id="mine-ics">Download saved events (.ics)</button>
 </div>
 
 <div class="subscribe">
-  <span class="lede">Subscribe once, stays up to date</span>
-  <a class="btn primary" href="webcal://abdullahmsalama.github.io/egypt-fitness-calendar/egypt-fitness.ics">Subscribe in Apple Calendar</a>
-  <a class="btn" href="https://calendar.google.com/calendar/r/settings/addbyurl" target="_blank" rel="noopener">Add to Google Calendar \u2197</a>
+  <span class="lede">Subscribe once — your calendar updates automatically</span>
+  <a class="btn primary" id="sub-apple" href="webcal://abdullahmsalama.github.io/egypt-fitness-calendar/egypt-fitness.ics">Add all events — Apple Calendar</a>
+  <a class="btn" href="https://calendar.google.com/calendar/r/settings/addbyurl" target="_blank" rel="noopener">Add all events — Google Calendar ↗</a>
+  <a class="btn" href="egypt-fitness.ics" download>Download the .ics file</a>
+  <span class="count" id="subnote" style="width:100%;margin-top:4px"></span>
 </div>
 
 <main id="list"></main>
@@ -228,7 +235,7 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--hair);
 </section>
 
 <footer>
-  <div>Egypt Fitness Events · compiled by <b style="color:var(--blue);font-weight:600">Abdullah Salama</b>.</div>
+  <div>Egypt Fitness Events · PwC ETIC Wellness Committee · compiled by <b style="color:var(--blue);font-weight:600">Abdullah Salama</b>.</div>
   <div>To update: edit the <code>EVENTS</code> array at the bottom of this file.</div>
   <div>Prices and deadlines change without notice — always confirm on the organiser's own page before paying.</div>
   <div>No external assets: fonts, styles and data are all in this single file, so it works offline and behind a firewall.</div>
@@ -357,7 +364,7 @@ const EVENTS = [
   suits:"Unknown until divisions are published. A combined CrossFit and hybrid format usually means scaled and RX tiers, so there is likely an entry point for newer competitors.",
   team:"",
   links:[{label:"Athletix on Instagram",url:"https://www.instagram.com/athletix.egy/",primary:true}],
-  note:"PARTIALLY VERIFIED — date (3 October 2026), format and New Cairo base confirmed by the compiler. Nothing is indexed on the open web and Instagram cannot be read automatically, so the exact venue, divisions, pricing and registration route are still unknown. Check the Instagram account for the registration link."
+  note:"PARTIALLY VERIFIED — date (3 October 2026), format and New Cairo base confirmed by a first-hand report. Nothing is indexed on the open web and Instagram cannot be read automatically, so the exact venue, divisions, pricing and registration route are still unknown. Check the Instagram account for the registration link."
 },
 {
   id:"marassi-hybrid", date:"2026-10-08", name:"Marassi Hybrid Race",
@@ -372,7 +379,7 @@ const EVENTS = [
   team:"",
   suppressEmpty:true,
   links:[{label:"AlphaX",url:"https://alphaxrace.com/",primary:true},{label:"AlphaX on Instagram",url:"https://www.instagram.com/alphaxegypt/"},{label:"Marassi Endurance Festival, 10 Oct",url:"https://www.thetrifactory.com/MarassiEndurancefestival"}],
-  note:"UNVERIFIED — listed on a first-hand report. No organiser page, registration link, format, pricing or confirmation could be found on AlphaX's site, The TriFactory's site, or anywhere indexed. Date and location are as reported. Confirm the organiser and format before promoting this one to anybody."
+  note:"UNVERIFIED — listed on Abdullah's own report of the event. No organiser page, registration link, format, pricing or confirmation could be found on AlphaX's site, The TriFactory's site, or anywhere indexed. Date and location are as reported. Confirm the organiser and format before promoting this one to anybody."
 },
 {
   id:"marassi-endurance", date:"2026-10-10", name:"Marassi Endurance Festival",
@@ -771,7 +778,7 @@ function render(){
         ${e._clash?`<span class="tag clash">${e._clash}</span>`:``}
       </div>
     </div>
-    <div class="right-cell">${pill}${cd}<div class="chev"><span></span><button class="star" data-star="${e.id}" aria-pressed="${saved.has(e.id)}" title="Mark as interested">${saved.has(e.id)?"\u2605":"\u2606"}</button></div></div>
+    <div class="right-cell">${pill}${cd}<div class="chev"><span></span></div><button class="star" data-star="${e.id}" aria-pressed="${saved.has(e.id)}" title="${saved.has(e.id)?'Saved to your list':'Save to your list'}" aria-label="Save ${e.name} to my list">${saved.has(e.id)?"\u2605":"\u2606"}</button></div>
   </summary>
   <div class="detail">
     <div class="perf"></div>
@@ -793,7 +800,7 @@ function render(){
           </div>
           <div class="links">
             ${e.links.map(l=>`<a class="btn ${l.primary?"primary":""}" href="${l.url}" target="_blank" rel="noopener">${l.label} ↗</a>`).join("")}
-            <a class="btn" href="${googleUrl(e)}" target="_blank" rel="noopener">Google Calendar \u2197</a><button class="btn" data-ics="${e.id}">Apple / Outlook</button>
+            <button class="star-btn" data-star="${e.id}" aria-pressed="${saved.has(e.id)}">${saved.has(e.id)?"★ Saved to my list":"☆ Save to my list"}</button><a class="btn" href="${googleUrl(e)}" target="_blank" rel="noopener">Add this to Google Calendar ↗</a><button class="btn" data-ics="${e.id}">Add this to Apple / Outlook</button>
           </div>
           <div class="prov">
             <span class="badge ${e.verified?"v":"p"}">${e.verified?"Verified on organiser site":"Secondary source only"}</span>
@@ -820,8 +827,12 @@ document.getElementById("list").addEventListener("click",ev=>{
     const id=st.dataset.star;
     if(saved.has(id)) saved.delete(id); else saved.add(id);
     persist();
-    st.setAttribute("aria-pressed",saved.has(id));
-    st.textContent=saved.has(id)?"\u2605":"\u2606";
+    const on=saved.has(id);
+    document.querySelectorAll('[data-star="'+id+'"]').forEach(el=>{
+      el.setAttribute("aria-pressed",on);
+      if(el.classList.contains("star-btn")) el.textContent = on?"★ Saved to my list":"☆ Save to my list";
+      else { el.textContent = on?"\u2605":"\u2606"; el.title = on?"Saved to your list":"Save to your list"; }
+    });
     syncMine();
     return;
   }
@@ -855,6 +866,22 @@ document.getElementById("watchlist").innerHTML=WATCH.map(w=>`
 
 render();
 syncMine();
+
+/* webcal:// only resolves where an OS calendar registers the protocol —
+   Apple devices and Outlook. Elsewhere the click silently does nothing,
+   so say so rather than leave a dead button. */
+(function(){
+  const ua=navigator.userAgent||"";
+  const apple=/iPhone|iPad|iPod|Macintosh/.test(ua)&&!/Android/.test(ua);
+  const note=document.getElementById("subnote");
+  const btn=document.getElementById("sub-apple");
+  if(!apple){
+    btn.classList.remove("primary");
+    note.textContent="Apple subscribe works on iPhone, iPad and Mac. On this device, use Google or download the file.";
+  } else {
+    note.textContent="Tap the Apple button, then Subscribe in the Calendar prompt. Set alerts under Calendar settings.";
+  }
+})();
 </script>
 </body>
 </html>
