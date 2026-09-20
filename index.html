@@ -40,7 +40,8 @@ h1{font-family:var(--display);font-weight:700;
 h1 em{font-style:normal;color:var(--sea)}
 .standfirst{max-width:58ch;color:#3D3D3D;font-size:15px;margin:0}
 .byline{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--graphite);margin-top:14px;padding-top:12px;border-top:1px solid var(--hair)}
+  color:var(--graphite);margin-top:14px;padding-top:12px;border-top:1px solid var(--hair);
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:7px;line-height:1.7}
 .byline b{color:var(--blue);font-weight:600}
 .meta-row{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:16px;
   font-family:var(--mono);font-size:11.5px;color:var(--graphite)}
@@ -100,6 +101,38 @@ h1 em{font-style:normal;color:var(--sea)}
 .tag.nature{border-color:var(--ink);color:var(--ink)}
 .tag.clash{border-color:var(--signal);color:var(--signal)}
 
+.me{font-family:var(--body);font-size:14.5px;font-weight:600;letter-spacing:0;
+  text-transform:none;color:var(--blue);background:none;border:none;padding:0;
+  cursor:pointer;border-bottom:1px solid var(--blue);vertical-align:baseline}
+.me:hover{border-bottom-style:solid}
+.backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;
+  align-items:center;justify-content:center;z-index:60;padding:20px}
+.backdrop[data-open="true"]{display:flex}
+.card-me{background:var(--paper);border:1px solid var(--hair);border-radius:var(--r);
+  max-width:320px;width:100%;padding:22px;position:relative;
+  padding-top:calc(22px + env(safe-area-inset-top,0px))}
+.card-me h3{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:-.02em;margin:0}
+.card-me .role{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--graphite);margin:5px 0 16px}
+.card-me a.link{display:flex;align-items:center;gap:10px;padding:11px 13px;border:1px solid var(--hair);
+  border-radius:2px;text-decoration:none;color:var(--ink);font-size:14px;margin-bottom:8px}
+.card-me a.link:hover{border-color:var(--ink);background:var(--panel)}
+.card-me a.link b{font-weight:600}
+.card-me a.link span{margin-left:auto;color:var(--graphite);font-size:12px}
+.card-me .close{position:absolute;top:8px;right:10px;background:none;border:none;font-size:22px;
+  line-height:1;color:var(--graphite);cursor:pointer;padding:4px 8px}
+.regbtn{font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;
+  padding:3px 7px;border:1px solid var(--hair);border-radius:2px;background:transparent;
+  color:var(--graphite);cursor:pointer;margin-top:6px;display:block;margin-left:auto}
+.regbtn:hover{border-color:var(--sea);color:var(--sea)}
+.regbtn[aria-pressed="true"]{background:var(--sea);border-color:var(--sea);color:#fff}
+.reg-btn-lg{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  padding:8px 13px;border:1px solid var(--hair);border-radius:2px;background:transparent;
+  color:var(--graphite);cursor:pointer}
+.reg-btn-lg:hover{border-color:var(--sea);color:var(--sea)}
+.reg-btn-lg[aria-pressed="true"]{background:var(--sea);border-color:var(--sea);color:#fff}
+.tick{color:var(--sea);font-weight:700;margin-right:5px}
+.youre-in{font-family:var(--mono);font-size:11px;color:var(--sea);font-weight:600;margin-top:6px}
 .star{background:none;border:none;cursor:pointer;font-size:30px;line-height:1;padding:0 2px;
   color:var(--hair);transition:color .15s ease,transform .12s ease;display:block;margin:8px 0 0 auto}
 .star:active{transform:scale(.88)}
@@ -193,10 +226,11 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--hair);
   <div class="kicker">Season 2026 – 2027</div>
   <h1>Egypt <em>Fitness</em> Events</h1>
   <p class="standfirst">Running, hybrid, CrossFit, strength, obstacle, cycling, swimming, climbing and triathlon — every event in Egypt we can verify, ordered by date. Open a row for format, cost, and whether it suits a first-timer or a repeat competitor.</p>
-  <div class="byline">Compiled by <b>Abdullah Salama</b></div>
+  <div class="byline">Compiled by <button class="me">Abdullah Salama</button></div>
   <div class="meta-row">
     <span>Today <b id="today"></b></span>
     <span>Sources last checked <b>1 Sep 2026</b></span>
+    <span><b>Static</b> — automation in progress</span>
     <span>Verified events <b id="vcount"></b></span>
     <span>On watchlist <b id="wcount"></b></span>
   </div>
@@ -213,9 +247,9 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--hair);
 </div>
 
 <div class="subscribe" id="mybar" style="display:none">
-  <span class="lede">★ Your saved events only</span>
+  <span class="lede">★ Interested and ✓ registered — yours only</span>
   <span class="count" id="mycount" style="margin:0"></span>
-  <button class="btn" id="mine-ics">Download saved events (.ics)</button>
+  <button class="btn" id="mine-ics">Download my events (.ics)</button>
 </div>
 
 <div class="subscribe">
@@ -235,12 +269,23 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--hair);
 </section>
 
 <footer>
-  <div>Egypt Fitness Events · compiled by <b style="color:var(--blue);font-weight:600">Abdullah Salama</b>.</div>
+  <div>Egypt Fitness Events · compiled by <button class="me">Abdullah Salama</button>.</div>
+  <div><b style="color:var(--ink);font-weight:600">Static for now.</b> The next version runs an agentic AI pipeline that re-reads each source on a schedule, spots what changed — a new date, a price rise, a deadline moving — and drafts the update for review before it goes live. Also scrapes well-known websites as well as human input for new events.</div>
   <div>To update: edit the <code>EVENTS</code> array at the bottom of this file.</div>
   <div>Prices and deadlines change without notice — always confirm on the organiser's own page before paying.</div>
   <div>No external assets: fonts, styles and data are all in this single file, so it works offline and behind a firewall.</div>
 </footer>
 
+</div>
+
+<div class="backdrop" id="mebox" data-open="false" role="dialog" aria-modal="true" aria-label="Contact Abdullah Salama">
+  <div class="card-me">
+    <button class="close" id="meclose" aria-label="Close">&times;</button>
+    <h3>Abdullah Salama</h3>
+    <div class="role">Compiler of this calendar</div>
+    <a class="link" href="https://www.linkedin.com/in/abdullah-salama/" target="_blank" rel="noopener"><b>LinkedIn</b><span>Open ↗</span></a>
+    <a class="link" href="https://www.instagram.com/abdu_salama/" target="_blank" rel="noopener"><b>Instagram</b><span>Open ↗</span></a>
+  </div>
 </div>
 
 <script>
@@ -673,16 +718,22 @@ document.getElementById("chips").innerHTML=FILTERS.map(([k,l])=>
 
 function matches(e){
   if(active==="all") return true;
-  if(active==="mine") return saved.has(e.id);
+  if(active==="mine") return saved.has(e.id)&&!reg.has(e.id);
+  if(active==="reg") return reg.has(e.id);
   if(active==="open") return e.status==="open";
   if(active==="team") return !!e.team;
   return e.cat===active;
 }
 
 const STORE="egyptFitness:interested";
-let saved=new Set();
+const STORE_REG="egyptFitness:registered";
+let saved=new Set(), reg=new Set();
 try{saved=new Set(JSON.parse(localStorage.getItem(STORE)||"[]"));}catch(err){saved=new Set();}
-function persist(){try{localStorage.setItem(STORE,JSON.stringify([...saved]));}catch(err){}}
+try{reg=new Set(JSON.parse(localStorage.getItem(STORE_REG)||"[]"));}catch(err){reg=new Set();}
+function persist(){
+  try{localStorage.setItem(STORE,JSON.stringify([...saved]));
+      localStorage.setItem(STORE_REG,JSON.stringify([...reg]));}catch(err){}
+}
 
 function pad(x){return String(x).padStart(2,"0");}
 function ymd(dt){return dt.getFullYear()+pad(dt.getMonth()+1)+pad(dt.getDate());}
@@ -692,16 +743,17 @@ function vevent(e){
   const start=e.date.replace(/-/g,"");
   const endD=new Date(d(e.dateEnd||e.date)); endD.setDate(endD.getDate()+1);
   const url=e.links[0]?e.links[0].url:"";
-  const desc=e.nature+" · "+CATS[e.cat]+(e.closes?"\\nRegistration closes "+fmt(e.closes):"")+(url?"\\n"+url:"");
+  const desc=e.nature+" · "+CATS[e.cat]+(reg.has(e.id)?"\\nRegistered \u2713":(e.closes?"\\nRegistration closes "+fmt(e.closes):""))+(url?"\\n"+url:"");
+  const done=reg.has(e.id);
   const out=["BEGIN:VEVENT","UID:"+e.id+"@egypt-fitness-events",
     "DTSTAMP:"+ymd(new Date())+"T000000Z",
     "DTSTART;VALUE=DATE:"+start,"DTEND;VALUE=DATE:"+ymd(endD),
-    "SUMMARY:"+esc(e.name),"LOCATION:"+esc(e.location),"DESCRIPTION:"+desc];
+    "SUMMARY:"+esc(titleFor(e)),"LOCATION:"+esc(e.location),"DESCRIPTION:"+desc];
   if(url) out.push("URL:"+url);
   out.push("BEGIN:VALARM","TRIGGER:-P7D","ACTION:DISPLAY","DESCRIPTION:"+esc(e.name)+" in one week","END:VALARM");
   out.push("BEGIN:VALARM","TRIGGER:-P1D","ACTION:DISPLAY","DESCRIPTION:"+esc(e.name)+" tomorrow","END:VALARM");
   out.push("END:VEVENT");
-  if(e.closes){
+  if(e.closes && !done){
     const c=e.closes.replace(/-/g,"");
     const cEnd=new Date(d(e.closes)); cEnd.setDate(cEnd.getDate()+1);
     out.push("BEGIN:VEVENT","UID:"+e.id+"-close@egypt-fitness-events",
@@ -726,13 +778,19 @@ function downloadIcs(events,filename){
   const a=document.createElement("a"); a.href=url; a.download=filename; a.click();
   setTimeout(()=>URL.revokeObjectURL(url),2000);
 }
+function titleFor(e){
+  return reg.has(e.id) ? "\u2713 "+e.name+" \u2014 REGISTERED" : e.name;
+}
 function googleUrl(e){
+  const done=reg.has(e.id);
   const start=e.date.replace(/-/g,"");
   const endD=new Date(d(e.dateEnd||e.date)); endD.setDate(endD.getDate()+1);
   const url=e.links[0]?e.links[0].url:"";
-  const det=e.nature+" · "+CATS[e.cat]+(e.closes?"\nRegistration closes "+fmt(e.closes):"")+(url?"\n"+url:"");
+  const det=e.nature+" \u00b7 "+CATS[e.cat]
+    +(done?"\nRegistered \u2713":(e.closes?"\nRegistration closes "+fmt(e.closes):""))
+    +(url?"\n"+url:"");
   return "https://calendar.google.com/calendar/render?action=TEMPLATE"
-    +"&text="+encodeURIComponent(e.name)
+    +"&text="+encodeURIComponent(titleFor(e))
     +"&dates="+start+"/"+ymd(endD)
     +"&details="+encodeURIComponent(det)
     +"&location="+encodeURIComponent(e.location);
@@ -769,7 +827,7 @@ function render(){
   <summary>
     <div class="bib${e.verified?"":" unv"}">${bibHTML}</div>
     <div class="main-cell">
-      <div class="name">${e.name}</div>
+      <div class="name">${reg.has(e.id)?'<span class="tick">\u2713</span>':""}${e.name}</div>
       <div class="sub">${e.location}</div>
       <div class="tags">
         <span class="tag nature">${e.nature}</span>
@@ -778,7 +836,7 @@ function render(){
         ${e._clash?`<span class="tag clash">${e._clash}</span>`:``}
       </div>
     </div>
-    <div class="right-cell">${pill}${cd}<div class="chev"><span></span></div><button class="star" data-star="${e.id}" aria-pressed="${saved.has(e.id)}" title="${saved.has(e.id)?'Saved to your list':'Save to your list'}" aria-label="Save ${e.name} to my list">${saved.has(e.id)?"\u2605":"\u2606"}</button></div>
+    <div class="right-cell">${pill}${cd}<div class="chev"><span></span></div><button class="star" data-star="${e.id}" aria-pressed="${saved.has(e.id)}" title="${saved.has(e.id)?'Saved to your list':'Save to your list'}" aria-label="Save ${e.name} to my list">${saved.has(e.id)?"\u2605":"\u2606"}</button>${(saved.has(e.id)||reg.has(e.id))?`<button class="regbtn" data-reg="${e.id}" aria-pressed="${reg.has(e.id)}">${reg.has(e.id)?"\u2713 Registered":"I\u2019ve registered"}</button>`:""}</div>
   </summary>
   <div class="detail">
     <div class="perf"></div>
@@ -800,7 +858,7 @@ function render(){
           </div>
           <div class="links">
             ${e.links.map(l=>`<a class="btn ${l.primary?"primary":""}" href="${l.url}" target="_blank" rel="noopener">${l.label} ↗</a>`).join("")}
-            <button class="star-btn" data-star="${e.id}" aria-pressed="${saved.has(e.id)}">${saved.has(e.id)?"★ Saved to my list":"☆ Save to my list"}</button><a class="btn" href="${googleUrl(e)}" target="_blank" rel="noopener">Add this to Google Calendar ↗</a><button class="btn" data-ics="${e.id}">Add this to Apple / Outlook</button>
+            <button class="star-btn" data-star="${e.id}" aria-pressed="${saved.has(e.id)}">${saved.has(e.id)?"★ Saved to my list":"☆ Save to my list"}</button><button class="reg-btn-lg" data-reg="${e.id}" aria-pressed="${reg.has(e.id)}">${reg.has(e.id)?"\u2713 Registered":"\u2610 I\u2019ve registered"}</button><a class="btn" href="${googleUrl(e)}" target="_blank" rel="noopener">Add this to Google Calendar ↗</a><button class="btn" data-ics="${e.id}">Add this to Apple / Outlook</button>
           </div>
           <div class="prov">
             <span class="badge ${e.verified?"v":"p"}">${e.verified?"Verified on organiser site":"Secondary source only"}</span>
@@ -821,19 +879,22 @@ document.getElementById("chips").addEventListener("click",ev=>{
   render();
 });
 document.getElementById("list").addEventListener("click",ev=>{
+  const rg=ev.target.closest("[data-reg]");
+  if(rg){
+    ev.preventDefault(); ev.stopPropagation();
+    const id=rg.dataset.reg;
+    if(reg.has(id)) reg.delete(id); else { reg.add(id); saved.add(id); }
+    persist(); render(); syncMine();
+    const row=document.getElementById(id); if(row) row.open=true;
+    return;
+  }
   const st=ev.target.closest("[data-star]");
   if(st){
     ev.preventDefault(); ev.stopPropagation();
     const id=st.dataset.star;
-    if(saved.has(id)) saved.delete(id); else saved.add(id);
-    persist();
-    const on=saved.has(id);
-    document.querySelectorAll('[data-star="'+id+'"]').forEach(el=>{
-      el.setAttribute("aria-pressed",on);
-      if(el.classList.contains("star-btn")) el.textContent = on?"★ Saved to my list":"☆ Save to my list";
-      else { el.textContent = on?"\u2605":"\u2606"; el.title = on?"Saved to your list":"Save to your list"; }
-    });
-    syncMine();
+    if(saved.has(id)){ saved.delete(id); reg.delete(id); } else saved.add(id);
+    persist(); render(); syncMine();
+    const row=document.getElementById(id); if(row && st.classList.contains("star-btn")) row.open=true;
     return;
   }
   const b=ev.target.closest("[data-ics]"); if(!b) return;
@@ -843,16 +904,23 @@ document.getElementById("list").addEventListener("click",ev=>{
 });
 
 function syncMine(){
-  const n=upcoming.filter(e=>saved.has(e.id)).length;
-  const chip=document.querySelector('.chip[data-f="mine"]');
-  if(chip) chip.textContent = n ? "\u2605 My list ("+n+")" : "\u2605 My list";
+  const nInt=upcoming.filter(e=>saved.has(e.id)&&!reg.has(e.id)).length;
+  const nReg=upcoming.filter(e=>reg.has(e.id)).length;
+  const c1=document.querySelector('.chip[data-f="mine"]');
+  if(c1) c1.textContent = nInt ? "\u2605 Interested ("+nInt+")" : "\u2605 Interested";
+  const c2=document.querySelector('.chip[data-f="reg"]');
+  if(c2) c2.textContent = nReg ? "\u2713 Registered ("+nReg+")" : "\u2713 Registered";
   const bar=document.getElementById("mybar");
-  bar.style.display = n ? "flex" : "none";
-  document.getElementById("mycount").textContent = n===1 ? "1 event saved" : n+" events saved";
-  if(active==="mine") render();
+  const total=nInt+nReg;
+  bar.style.display = total ? "flex" : "none";
+  const parts=[];
+  if(nInt) parts.push(nInt+" interested");
+  if(nReg) parts.push(nReg+" registered");
+  document.getElementById("mycount").textContent = parts.join(" \u00b7 ");
+  if(active==="mine"||active==="reg") render();
 }
 document.getElementById("mine-ics").addEventListener("click",()=>{
-  const list=upcoming.filter(e=>saved.has(e.id));
+  const list=upcoming.filter(e=>saved.has(e.id)||reg.has(e.id));
   if(list.length) downloadIcs(list,"my-fitness-events.ics");
 });
 
@@ -882,6 +950,18 @@ syncMine();
     note.textContent="Tap the Apple button, then Subscribe in the Calendar prompt. Set alerts under Calendar settings.";
   }
 })();
+
+/* contact card */
+(function(){
+  const box=document.getElementById("mebox");
+  const open=()=>{box.dataset.open="true";document.getElementById("meclose").focus();};
+  const shut=()=>{box.dataset.open="false";};
+  document.querySelectorAll(".me").forEach(b=>b.addEventListener("click",open));
+  document.getElementById("meclose").addEventListener("click",shut);
+  box.addEventListener("click",e=>{if(e.target===box) shut();});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape") shut();});
+})();
 </script>
+
 </body>
 </html>
