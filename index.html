@@ -247,7 +247,7 @@ footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--hair);
 </div>
 
 <div class="subscribe" id="mybar" style="display:none">
-  <span class="lede">★ Interested and ✓ registered — yours only</span>
+  <span class="lede">★ My list — yours only</span>
   <span class="count" id="mycount" style="margin:0"></span>
   <button class="btn" id="mine-ics">Download my events (.ics)</button>
 </div>
@@ -711,14 +711,14 @@ document.getElementById("deadlines").innerHTML = dl.length ? dl.map(e=>`
   : `<div class="dl"><div class="e">No published deadlines in range.</div></div>`;
 
 /* filters */
-const FILTERS=[["all","All events"],["mine","\u2605 My list"],["open","Open now"],["team","Team option"],["hybrid","Hybrid"],["strength","Strength & CrossFit"],["ocr","Obstacle"],["road","Road"],["trail","Trail"],["cycling","Cycling"],["swim","Swimming"],["tri","Triathlon"]];
+const FILTERS=[["all","All events"],["mine","\u2605 My list"],["reg","\u2713 Registered"],["open","Open now"],["team","Team option"],["hybrid","Hybrid"],["strength","Strength & CrossFit"],["ocr","Obstacle"],["road","Road"],["trail","Trail"],["cycling","Cycling"],["swim","Swimming"],["tri","Triathlon"]];
 let active="all";
 document.getElementById("chips").innerHTML=FILTERS.map(([k,l])=>
   `<button class="chip" data-f="${k}" aria-pressed="${k==='all'}">${l}</button>`).join("");
 
 function matches(e){
   if(active==="all") return true;
-  if(active==="mine") return saved.has(e.id)&&!reg.has(e.id);
+  if(active==="mine") return saved.has(e.id)||reg.has(e.id);
   if(active==="reg") return reg.has(e.id);
   if(active==="open") return e.status==="open";
   if(active==="team") return !!e.team;
@@ -904,18 +904,18 @@ document.getElementById("list").addEventListener("click",ev=>{
 });
 
 function syncMine(){
-  const nInt=upcoming.filter(e=>saved.has(e.id)&&!reg.has(e.id)).length;
+  const nAll=upcoming.filter(e=>saved.has(e.id)||reg.has(e.id)).length;
   const nReg=upcoming.filter(e=>reg.has(e.id)).length;
+  const nInt=nAll-nReg;
   const c1=document.querySelector('.chip[data-f="mine"]');
-  if(c1) c1.textContent = nInt ? "\u2605 Interested ("+nInt+")" : "\u2605 Interested";
+  if(c1) c1.textContent = nAll ? "\u2605 My list ("+nAll+")" : "\u2605 My list";
   const c2=document.querySelector('.chip[data-f="reg"]');
   if(c2) c2.textContent = nReg ? "\u2713 Registered ("+nReg+")" : "\u2713 Registered";
   const bar=document.getElementById("mybar");
-  const total=nInt+nReg;
-  bar.style.display = total ? "flex" : "none";
-  const parts=[];
-  if(nInt) parts.push(nInt+" interested");
+  bar.style.display = nAll ? "flex" : "none";
+  const parts=[nAll+(nAll===1?" event saved":" events saved")];
   if(nReg) parts.push(nReg+" registered");
+  else if(nInt) parts.push("none registered yet");
   document.getElementById("mycount").textContent = parts.join(" \u00b7 ");
   if(active==="mine"||active==="reg") render();
 }
