@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Egypt Fitness Events</title>
+<style>
+:root{
+  --paper:#FFFFFF;
+  --panel:#F2F2F2;
+  --ink:#000000;
+  --graphite:#7D7D7D;
+  --hair:#DEDEDE;
+  --sea:#D04A02;
+  --signal:#E0301E;
+  --ochre:#EB8C00;
+  --blue:#0B63CE;
+  --r:0px;
+  --display:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --body:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--body);
+  font-size:15px;line-height:1.5;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px 80px}
+
+/* ---------- masthead ---------- */
+header.top{border-bottom:1px solid var(--hair);padding:34px 0 20px;margin-bottom:0;position:relative}
+header.top::before{content:"";position:absolute;top:0;left:0;width:64px;height:5px;background:var(--sea)}
+.kicker{font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--graphite)}
+h1{font-family:var(--display);font-weight:700;
+  font-size:clamp(34px,6.6vw,56px);line-height:1.0;letter-spacing:-.025em;
+  margin:10px 0 12px}
+h1 em{font-style:normal;color:var(--sea)}
+.standfirst{max-width:58ch;color:#3D3D3D;font-size:15px;margin:0}
+.byline{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--graphite);margin-top:14px;padding-top:12px;border-top:1px solid var(--hair)}
+.byline b{color:var(--blue);font-weight:600}
+.meta-row{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:16px;
+  font-family:var(--mono);font-size:11.5px;color:var(--graphite)}
+.meta-row b{color:var(--ink);font-weight:500}
+
+/* ---------- deadline ticker ---------- */
+.ticker{border-bottom:1px solid var(--hair);padding:18px 0 20px}
+.ticker h2,.section-h{font-family:var(--mono);font-size:11px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--graphite);
+  margin:0 0 12px;font-weight:500}
+.deadlines{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.dl{background:var(--panel);border:1px solid var(--hair);border-left:3px solid var(--signal);
+  padding:10px 12px;border-radius:var(--r)}
+.dl .n{font-family:var(--display);font-weight:700;font-size:28px;
+  line-height:1;letter-spacing:-.03em;color:var(--signal)}
+.dl .n small{font-size:12px;font-family:var(--mono);font-weight:400;
+  color:var(--graphite);margin-left:5px}
+.dl .e{font-weight:600;font-size:13.5px;margin-top:5px}
+.dl .d{font-family:var(--mono);font-size:11px;color:var(--graphite);margin-top:2px}
+
+/* ---------- controls ---------- */
+.controls{position:sticky;top:0;z-index:20;background:var(--paper);
+  padding:14px 0 12px;border-bottom:1px solid var(--hair);margin-bottom:2px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:var(--mono);font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;padding:6px 11px;border:1px solid var(--hair);
+  background:transparent;color:var(--graphite);border-radius:99px;cursor:pointer}
+.chip:hover{border-color:var(--ink);color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.chip:focus-visible,summary:focus-visible,a:focus-visible,button:focus-visible{
+  outline:2px solid var(--sea);outline-offset:2px}
+.count{font-family:var(--mono);font-size:11px;color:var(--graphite);margin-top:9px}
+
+/* ---------- start list ---------- */
+.row{border-bottom:1px solid var(--hair)}
+.row summary{list-style:none;cursor:pointer;display:grid;
+  grid-template-columns:76px 1fr auto;gap:14px;align-items:start;padding:16px 2px}
+.row summary::-webkit-details-marker{display:none}
+.row summary:hover{background:rgba(255,255,255,.5)}
+
+.bib.unv{border-top-color:var(--ochre)}
+.bib{background:var(--panel);border-top:3px solid var(--sea);border-radius:var(--r);
+  text-align:center;padding:7px 4px 8px}
+.bib .num{font-family:var(--display);font-weight:700;font-size:25px;
+  line-height:.95;letter-spacing:-.03em}
+.bib .mon{font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--graphite);margin-top:3px}
+.bib .yr{font-family:var(--mono);font-size:9px;color:var(--graphite);opacity:.7}
+
+.main-cell .name{font-family:var(--display);font-weight:700;
+  font-size:20px;line-height:1.2;letter-spacing:-.015em}
+.main-cell .sub{font-size:13px;color:var(--graphite);margin-top:3px}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;align-items:center}
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.08em;
+  text-transform:uppercase;padding:3px 7px;border:1px solid var(--hair);border-radius:2px;
+  color:var(--graphite)}
+.tag.nature{border-color:var(--ink);color:var(--ink)}
+.tag.clash{border-color:var(--signal);color:var(--signal)}
+
+.right-cell{text-align:right;min-width:96px}
+.pill{display:inline-block;font-family:var(--mono);font-size:10px;
+  letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:2px;
+  font-weight:500;white-space:nowrap}
+.pill.open{background:var(--sea);color:#fff}
+.pill.soon{background:transparent;color:var(--ink);border:1px dashed var(--graphite)}
+.pill.tbc{background:transparent;color:var(--ochre);border:1px solid var(--ochre)}
+.countdown{font-family:var(--mono);font-size:11px;color:var(--graphite);
+  margin-top:6px}
+.countdown.urgent{color:var(--signal);font-weight:600}
+.chev{font-family:var(--mono);font-size:11px;color:var(--graphite);margin-top:6px}
+details[open] .chev span::after{content:"hide"}
+.chev span::after{content:"details"}
+
+/* ---------- detail panel ---------- */
+.detail{padding:4px 2px 26px}
+.perf{height:1px;margin:0 0 20px;
+  background-image:radial-gradient(circle,var(--hair) 1px,transparent 1px);
+  background-size:7px 1px;background-repeat:repeat-x}
+.detail-grid{display:grid;grid-template-columns:76px 1fr;gap:14px}
+.detail-body{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px 26px}
+.block h4{font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--graphite);margin:0 0 6px;font-weight:500}
+.block p{margin:0 0 8px;font-size:14px}
+.block ul{margin:0;padding-left:17px;font-size:14px}
+.block li{margin-bottom:4px}
+.block .empty{color:var(--ochre);font-size:13px;font-style:italic}
+.kv{font-family:var(--mono);font-size:12.5px;line-height:1.75}
+.kv b{font-weight:500;color:var(--graphite);font-family:var(--body);
+  font-size:13px;display:inline-block;min-width:104px}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;grid-column:1/-1}
+.btn{font-family:var(--mono);font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;padding:8px 13px;border:1px solid var(--ink);
+  border-radius:2px;text-decoration:none;color:var(--ink);background:transparent;cursor:pointer}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn.primary{background:var(--ink);color:var(--paper)}
+.btn.primary:hover{opacity:.82}
+.prov{grid-column:1/-1;margin-top:14px;padding-top:11px;border-top:1px solid var(--hair);
+  font-family:var(--mono);font-size:11px;color:var(--graphite);line-height:1.65}
+.prov .badge{display:inline-block;padding:2px 6px;border-radius:2px;margin-right:8px;
+  letter-spacing:.08em;text-transform:uppercase;font-size:9.5px}
+.badge.v{background:var(--sea);color:#fff}
+.badge.p{background:var(--ochre);color:#fff}
+
+/* ---------- watchlist ---------- */
+.watch{margin-top:52px;border-top:1px solid var(--hair);padding-top:22px;position:relative}
+.watch::before{content:"";position:absolute;top:0;left:0;width:64px;height:5px;background:var(--ochre)}
+.watch-intro{max-width:62ch;color:var(--graphite);font-size:14px;margin:0 0 18px}
+.wl{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:12px}
+.wcard{border:1px dashed var(--ochre);border-radius:var(--r);padding:13px 14px;background:var(--panel)}
+.wcard .wn{font-family:var(--display);font-weight:700;font-size:17px;line-height:1.2;letter-spacing:-.015em}
+.wcard .wq{font-family:var(--mono);font-size:10.5px;color:var(--ochre);
+  letter-spacing:.08em;text-transform:uppercase;margin:4px 0 7px}
+.wcard p{margin:0;font-size:13px;color:var(--graphite)}
+.wcard a{color:var(--ink);font-size:12.5px;display:inline-block;margin-top:7px}
+
+footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--hair);
+  font-family:var(--mono);font-size:11px;color:var(--graphite);line-height:1.8}
+.empty-state{padding:44px 2px;color:var(--graphite);font-size:14px}
+
+@media(max-width:620px){
+  .row summary{grid-template-columns:60px 1fr;gap:11px}
+  .right-cell{grid-column:2;text-align:left;margin-top:2px}
+  .detail-grid{grid-template-columns:1fr}
+  .bib .num{font-size:22px}
+  .main-cell .name{font-size:20px}
+  .kv b{display:block;min-width:0}
+}
+@media(prefers-reduced-motion:no-preference){
+  .row{transition:background .15s ease}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="kicker">Season 2026 – 2027</div>
+  <h1>Egypt <em>Fitness</em> Events</h1>
+  <p class="standfirst">Running, hybrid, CrossFit, strength, obstacle, cycling, swimming, climbing and triathlon — every event in Egypt we can verify, ordered by date. Open a row for format, cost, and whether it suits a first-timer or a repeat competitor.</p>
+  <div class="byline">Compiled by <b>Abdullah Salama</b></div>
+  <div class="meta-row">
+    <span>Today <b id="today"></b></span>
+    <span>Sources last checked <b>1 Sep 2026</b></span>
+    <span>Verified events <b id="vcount"></b></span>
+    <span>On watchlist <b id="wcount"></b></span>
+  </div>
+</header>
+
+<section class="ticker">
+  <h2>Closing soonest</h2>
+  <div class="deadlines" id="deadlines"></div>
+</section>
+
+<div class="controls">
+  <div class="chips" id="chips"></div>
+  <div class="count" id="resultCount"></div>
+</div>
+
+<main id="list"></main>
+
+<section class="watch">
+  <div class="section-h">Watchlist — not confirmed</div>
+  <p class="watch-intro">Annual events whose next date is not yet published, disciplines that run through federations rather than open entry, and leads we could not verify. Kept out of the calendar above on purpose — if you can confirm one, move it up.</p>
+  <div class="wl" id="watchlist"></div>
+</section>
+
+<footer>
+  <div>Egypt Fitness Events · compiled by <b style="color:var(--blue);font-weight:600">Abdullah Salama</b>.</div>
+  <div>To update: edit the <code>EVENTS</code> array at the bottom of this file.</div>
+  <div>Prices and deadlines change without notice — always confirm on the organiser's own page before paying.</div>
+  <div>No external assets: fonts, styles and data are all in this single file, so it works offline and behind a firewall.</div>
+</footer>
+
+</div>
+
+<script>
+/* ============================================================
+   EVENT DATA — edit here, nothing else.
+   status: "open" | "soon" | "tbc"
+   verified: true  = I read the organiser's own page
+             false = single secondary source, treat with care
+   ============================================================ */
+const EVENTS = [
+{
+  id:"alphax-cairo-stadium", date:"2026-10-24", name:"AlphaX Cairo Stadium",
+  nature:"Hybrid race", cat:"hybrid", location:"Cairo International Stadium, Nasr City",
+  organiser:"M squared / AlphaX", status:"open", closes:null, verified:true,
+  format:["800 m run alternating with 10 functional stations — 8 km of running in total","Stations include sled push and pull, row, SkiErg, lunges, carries, wall balls","Divisions: Solo Open, Solo Pro, Pairs (same-sex or mixed), Relay of four","Scaled solo: 5 × 800 m with two back-to-back stations, 4 km total, lighter loads","Divisions differ by gender and station weight — the running distance is identical across all of them","Athletes start in waves by division"],
+  cost:["See the Competition Corner registration page for current division pricing"],
+  included:"Chip timing, leaderboard placing, finisher medal.",
+  background:"The fourth AlphaX event, and the series' move into Cairo Stadium. AlphaX launched in December 2025 at the Grand Egyptian Museum and is Egypt's own hybrid racing series, backed by a three-year M squared partnership. The format is deliberately Hyrox-adjacent but with ten stations instead of eight and shorter 800 m run legs, which changes the pacing entirely — less time to recover between stations.",
+  suits:"Everyone. The scaled solo and the relay make it the most beginner-friendly hybrid entry in Egypt; Pro is genuinely competitive.",
+  team:"Yes — Pairs and four-person Relay.",
+  links:[{label:"Register",url:"https://competitioncorner.net/events/21927",primary:true},{label:"AlphaX",url:"https://alphaxrace.com/"},{label:"Rules book (PDF)",url:"https://alphaxrace.com/wp-content/uploads/2026/04/ALPHAX-RulesBook.pdf"}],
+  note:"Date and venue confirmed by AlphaX Egypt's own registration announcement (29 Jul 2026); registration live on Competition Corner. Note the clash: Roody 50x runs the same morning at Wadi Degla."
+},
+{
+  id:"aquaman-somabay", date:"2026-10-29", dateEnd:"2026-10-31", name:"Aquaman Somabay",
+  nature:"Open water swim", cat:"swim", location:"Somabay, Red Sea",
+  organiser:"Somabay with OneFlow Aquatics Academy", status:"open", closes:null, verified:false,
+  format:["Six races across two race days, from short sprints up to a 10 km endurance swim","Aquaman, Aquaman 5.0, Aquaman 2.0, AquaFins, AquaKids 500 m, AquaTeam 3 x 500 m relay","Kit pickup the day before; races run morning and afternoon with an evening award ceremony","Marked course with buoys and checkpoints, lifeguards and support boats throughout"],
+  cost:["Tiered by distance; the AquaTeam price is per person in a team of three"],
+  included:"Race kit, swim cap, timing chip, race tattoo, finisher tee and medal, timed results, medical support, aid stations, post-event recovery area.",
+  background:"Egypt's biggest mass-participation open water swim. The first edition drew over 300 competitors from 20 nations. Somabay's water is famously clear and calm, and the weekend runs as a festival with a gala and after-party rather than a pure competition. The organisers also run an Aswan edition in the Nile.",
+  suits:"Everyone who can swim — the ladder runs from a 500 m kids' race to a 10 km. AquaTeam is the natural group entry.",
+  team:"Yes — AquaTeam 3 x 500 m relay.",
+  links:[{label:"Races and registration",url:"https://www.aquaman.co/races-aquamanaswan",primary:true},{label:"Event listing",url:"https://www.active.com/red-sea-governorate-egypt/water-sports/swimming/aquaman-somabay-2026"}],
+  note:"Listings disagree on the exact dates for 2026 — one gives 29-31 Oct and another 23-24 Oct. Confirm with the organiser before booking. Format and inclusions are from Aquaman's own race pages."
+},
+{
+  id:"cmas-finswimming", date:"2026-10-30", dateEnd:"2026-11-04", name:"CMAS Finswimming Open Water World Championship",
+  nature:"Finswimming worlds", cat:"swim", location:"Sharm El Maya Bay, Sharm El Sheikh",
+  organiser:"Egyptian Diving and Lifesaving Federation with CMAS", status:"tbc", closes:null, verified:false,
+  format:["World championship for seniors and juniors","Open water finswimming in sheltered bay conditions"],
+  cost:["National federation entry — not an open-entry event"],
+  included:"",
+  background:"The finswimming world championship comes to the Red Sea. Sharm El Maya Bay was chosen for its visibility, sheltered water and minimal wave activity. This is an elite federation-level championship rather than something you can simply enter, but it is worth knowing about — and worth watching if you are in Sharm that week.",
+  suits:"Spectators, unless you are on a national finswimming team.",
+  team:"National teams only.",
+  links:[{label:"Championship details",url:"https://www.finswimmer.com/2026-cmas-world-championship-finswimming-open-water/",primary:true}],
+  note:"Reported by Finswimmer Magazine. Entry is via national federations, not open registration."
+},
+{
+  id:"elfit-2026", date:"2026-11-19", dateEnd:"2026-11-22", name:"ELFIT Fitness Games",
+  nature:"Multi-sport games", cat:"strength", location:"New Capital Sports City",
+  organiser:"ELFIT", status:"tbc", closes:null, verified:true,
+  format:["Not one event but a whole festival of them, run over a long weekend:","CHAMPIONSHIP — the flagship CrossFit competition, entry via online qualifiers","ROOKIES — for people months-to-years into training who are not yet at RX level","STRONGMAN — truck pulls, sandbag tosses, deadlifts, log presses, farmer's walks","LIFT IT — a two-lift meet: snatch, then clean and jerk","CALISTHENICS — bar skills and strength moves","ROWATHON — team and individual rowing","ENDURANCE — a super-sprint of swim, bike and run","THROWDOWN, TRAIL RUN, BEACH WARRIORS, JUNIORS and an ARAB CHAMPIONSHIP","Championship divisions run Elite, Intermediate, Scaled, Masters 35+ through 55+, U18, U22, plus Rookies teams and scaled mixed teams"],
+  cost:["Priced per event; the Championship requires paid online qualifiers first"],
+  included:"",
+  background:"Running since February 2013, ELFIT is the oldest and largest fitness competition in the region and the answer to almost every gap on this calendar — it is where CrossFit, strongman, calisthenics, Olympic lifting and rowing all actually happen in Egypt. The Championship itself is invitation-by-qualifier, but most of the satellite events are open entry. The 2025 edition ran 19-22 November at New Capital Sports City with online qualifiers opening in August.",
+  suits:"Genuinely everyone — that is the point of the format. Rookies and the scaled divisions are built for people who have never competed; Elite is regionally serious.",
+  team:"Yes — Rookies teams of three, scaled mixed teams of two men and one woman, plus team categories in Rowathon and Beach Warriors.",
+  links:[{label:"ELFIT events",url:"https://www.elfiteg.com/",primary:true},{label:"Championship page",url:"https://www.elfiteg.com/elfit-championship/"},{label:"Strongman",url:"https://www.elfiteg.com/elfit-strongman-2/"},{label:"Calisthenics",url:"https://www.elfiteg.com/elfit-calisthenics-2/"},{label:"Lift It",url:"https://www.elfiteg.com/elfit-lift-it-2/"},{label:"On Instagram",url:"https://www.instagram.com/elfit_egypt/"}],
+  note:"Event list and division structure read from ELFIT's own site. The 19-22 Nov 2026 dates are projected from the 2025 pattern — the site still shows the 2025 edition, so treat the dates as provisional and watch @elfit_egypt for the 2026 announcement and qualifier window."
+},
+{
+  id:"galala-10", date:"2026-11-06", name:"Galala Challenge X",
+  nature:"Road cycling", cat:"cycling", location:"Starts at District 5, Cairo — Ain Sokhna and Galala Mountain roads",
+  organiser:"PowerRide Sports", status:"open", closes:null, verified:true,
+  format:["Rolls out 06:20, event window closes 12:20","50 km — the introduction to endurance cycling","90 km — for riders looking to push further","150 km — the full endurance ride including the 10 km Galala Climb timed segment","Timed segment starts around 110 km in; riders must pass through the start and finish timing gates","MYLAPS chip timing, and overall and age-group rankings are decided on the climb segment alone","Capped at 3,000 riders","All routes supported with hydration, nutrition, medical cover, mechanical assistance and volunteers"],
+  cost:["50 km — EGP 1,200","90 km — EGP 1,300","150 km — EGP 1,400","Full refund until 30 September; 50% refund 1–16 October; non-refundable from 17 October"],
+  included:"Official finisher medal, partner giveaways, on-route hydration, nutrition, medical and mechanical support, professional photography and videography, official timing and results for the climb segment, access to the post-race celebration.",
+  background:"The tenth edition of the event that started in 2018 and became Egypt's most iconic ride. The course runs the Ain Sokhna and Galala Mountain roads — smooth highway, Red Sea views, and the Galala Climb. Scoring the race on the climb segment alone rather than total time means a strong climber can win the day without being first across the line, which is what gives the 150 km its character.",
+  suits:"The 50 km needs a road bike and a modest base. The 150 km with the timed climb is one of the hardest days on this calendar.",
+  team:"No team category, but clubs and groups ride it together.",
+  links:[{label:"Register",url:"https://galalachallenge.com/event/galala-challenge-10th-edition-a-milestone-worth-riding-for/",primary:true},{label:"PowerRide on Instagram",url:"https://www.instagram.com/powerridesports/"}],
+  note:"Read directly from the organiser's 10th-edition page. Two things worth acting on: entries are capped at 3,000, and the full-refund window shuts on 30 September — booking before then costs nothing if plans change. Clashes with the Alexandria Marathon on the same day."
+},
+{
+  id:"ice-warrior-5", date:"2026-09-12", name:"Ice Warrior Challenge V",
+  nature:"Snow obstacles", cat:"ocr", location:"Ski Egypt, Mall of Egypt, 6th October",
+  organiser:"Ski Egypt", status:"open", closes:null, verified:true,
+  format:["20+ obstacles on snow, indoor sub-zero course","Elite Division — chip-timed, ranked, ages 15+","Open Division — untimed, ages 8+","Doors 07:30, first wave 09:00"],
+  cost:["Open Division — EGP 470","Elite Division — EGP 620","Group of 5, Open — EGP 1,880","Group of 5, Elite — EGP 2,480","Spectator — EGP 150"],
+  included:"T-shirt, fleece gloves, sack bag, finisher medal, wristband, race number, one spectator invite, hot chocolate.",
+  background:"Fifth edition. The only cold-environment fitness event in Egypt — the novelty is the point, and the sub-zero hall means it is one of the few September events that isn't brutal in the heat. Elite is the only division with timing, so it's the one to enter if you want a result.",
+  suits:"Both ends. Open Division works for a complete beginner or a family group; Elite is a genuine short, sharp test of grip, power and lungs.",
+  team:"Yes — five-person group rate on both divisions, roughly 20% off per head.",
+  links:[{label:"Book tickets",url:"https://www.ticketsmarche.com/event/9011",primary:true},{label:"Ski Egypt",url:"https://www.ski-egypt.com/"}],
+  note:"Read directly from the TicketsMarche listing on 23 Aug 2026. No stated registration deadline — likely sells out rather than closes."
+},
+{
+  id:"back-to-school", date:"2026-09-18", name:"Back to School Run",
+  nature:"Family fun run", cat:"road", location:"Hyde Out, Hyde Park, New Cairo",
+  organiser:"Cairo Runners", status:"open", closes:null, verified:true,
+  format:["2 km and 5 km","07:30 meet, 07:50 warm-up, 08:00 start","Free to enter, but registration is required"],
+  cost:["Free"], included:"",
+  background:"Cairo Runners' start-of-school-year community run — kids, parents and friends, scooters and all. Not a race in any competitive sense; it exists to get people to a start line. Cairo Runners have been closing Cairo streets since 2012 and are the biggest running community in the country.",
+  suits:"Complete beginners, children, and anyone who wants to bring family. The cheapest possible way to get colleagues to their first event.",
+  team:"Informal — bring whoever you like.",
+  links:[{label:"Event page",url:"https://www.cairorunners.com/portfolio/back-to-school-run/",primary:true},{label:"Register",url:"https://registration.cairorunners.com/"}],
+  note:"Date confirmed as 18 Sep 2026 from Cairo Runners' own 2026 calendar announcement."
+},
+{
+  id:"zamalek-5k", date:"2026-09-25", name:"Zamalek 5K Run",
+  nature:"Charity 5K", cat:"road", location:"Mamsha Ahl Misr, Zamalek — entry next to Blue Nile",
+  organiser:"The TriFactory", status:"open", closes:null, verified:true,
+  format:["5 km, untimed, open to all ages 8+","08:00 arrival and check-in, 08:20 warm-up and speeches, 08:30 start, 09:00 cool-down","Runs along the new Nile promenade"],
+  cost:["EGP 500, excluding 14% VAT"],
+  included:"Race number at check-in, premium finisher's medal at the finish line.",
+  background:"The first running event in support of the Zamalek Association for Development, which works on green space, pedestrian safety and heritage preservation in the district. Every entry funds those projects. The route takes in rare trees, historic buildings and riverside heritage gardens along Mamsha Ahl Misr.",
+  suits:"Anyone. Untimed, flat, short and central — the lowest-commitment event on the calendar after the Cairo Runners street runs.",
+  team:"No formal team division.",
+  links:[{label:"Register",url:"https://www.thetrifactory.com/zamalek5krun",primary:true}],
+  note:"Read directly from The TriFactory's own page on 23 Aug 2026."
+},
+{
+  id:"athletix-games", date:"2026-10-03", name:"Athletix Games",
+  nature:"CrossFit & hybrid", cat:"strength", location:"New Cairo — other venues possible",
+  organiser:"Athletix", status:"tbc", closes:null, verified:false,
+  format:["Combines CrossFit-style competition with hybrid racing — runs paired with functional stations","Division list, station breakdown and workout details not yet published"],
+  cost:[], included:"",
+  background:"A fitness competition run by Athletix, promoted through their Instagram channel. The format spans both CrossFit-style workouts and hybrid racing, which puts it between The Combat Games and AlphaX rather than squarely in either camp. Based in New Cairo, though the series may run at other venues too.",
+  suits:"Unknown until divisions are published. A combined CrossFit and hybrid format usually means scaled and RX tiers, so there is likely an entry point for newer competitors.",
+  team:"",
+  links:[{label:"Athletix on Instagram",url:"https://www.instagram.com/athletix.egy/",primary:true}],
+  note:"PARTIALLY VERIFIED — date (3 October 2026), format and New Cairo base confirmed by the compiler. Nothing is indexed on the open web and Instagram cannot be read automatically, so the exact venue, divisions, pricing and registration route are still unknown. Check the Instagram account for the registration link."
+},
+{
+  id:"marassi-hybrid", date:"2026-10-08", name:"Marassi Hybrid Race",
+  nature:"Hybrid race", cat:"hybrid", location:"Marassi, North Coast",
+  organiser:"To be confirmed",
+  status:"tbc", closes:null, verified:false,
+  format:[],
+  cost:[],
+  included:"",
+  background:"A hybrid fitness race at Marassi on the North Coast, reported to run two days before the Marassi Endurance Festival at the same destination. The pairing suggests a single race weekend at Marassi — hybrid on the Thursday, swim-bike-run on the Saturday — though the two are run by different organisers as far as we can tell.",
+  suits:"Unknown until the format is published. If it follows the Egyptian hybrid standard it will have scaled and relay divisions suitable for beginners.",
+  team:"",
+  suppressEmpty:true,
+  links:[{label:"AlphaX",url:"https://alphaxrace.com/",primary:true},{label:"AlphaX on Instagram",url:"https://www.instagram.com/alphaxegypt/"},{label:"Marassi Endurance Festival, 10 Oct",url:"https://www.thetrifactory.com/MarassiEndurancefestival"}],
+  note:"UNVERIFIED — listed on a first-hand report. No organiser page, registration link, format, pricing or confirmation could be found on AlphaX's site, The TriFactory's site, or anywhere indexed. Date and location are as reported. Confirm the organiser and format before promoting this one to anybody."
+},
+{
+  id:"marassi-endurance", date:"2026-10-10", name:"Marassi Endurance Festival",
+  nature:"Triathlon & aquathlon", cat:"tri", location:"Marassi Marina, North Coast",
+  organiser:"The TriFactory", status:"open", closes:"2026-10-05", verified:true,
+  format:["Supersprint Aquathlon, ages 12+ — 350 m open-water swim + 2.5 km run, individual only","Sprint Aquathlon, ages 14+ — 750 m swim + 5 km run, individual or relay","Sprint Distance triathlon, ages 14+ — 750 m swim, 20 km bike, 5 km run, individual or relay","Saturday 10 Oct: 08:00 race pack pickup, 09:00 Sprint Distance, 10:15 Supersprint Aquathlon, 10:30 Sprint Aquathlon, 12:00 awards","MyLaps chip timing; gold, silver and bronze in every 5-year age group plus overall podium","Spectator passes sold separately"],
+  cost:["Early bird until Thu 24 Sep — Supersprint Aquathlon EGP 800, Sprint Aquathlon EGP 800, Sprint Aquathlon Relay EGP 1,200, Sprint Distance EGP 1,000, Sprint Distance Relay EGP 1,400","General until Mon 5 Oct — EGP 1,000 / 1,000 / 1,400 / 1,200 / 1,600 respectively","All prices exclude 14% VAT","Payment by card, Apple Pay, wallet, Aman cash, or instalments via Sympl or ValU"],
+  included:"Race bag, swim cap, MyLaps automatic timing, finisher medal on completing the distance, digital race certificate.",
+  background:"The third edition at Marassi. The Endurance Festival is The TriFactory's signature multi-sport series, running since 2014 — usually at Somabay on the Red Sea, and previously at Marassi, Sahl Hasheesh, Azha Ain Sokhna and Montazah Palace in Alexandria. Swim is an open-water course inside Marassi Marina; bike and run are scenic loops on interlock and asphalt.",
+  suits:"The two aquathlons are the softest entry into multi-sport anywhere on this calendar — swim and run only, no bike, no transitions to learn, and the Supersprint takes ages 12+. Sprint Distance is a real triathlon but a short one.",
+  team:"Yes — relay teams on both the Sprint Aquathlon and the Sprint Distance, so a swimmer and a runner can split a race between them.",
+  links:[{label:"Register",url:"https://www.thetrifactory.com/MarassiEndurancefestival",primary:true},{label:"The TriFactory",url:"https://www.thetrifactory.com/"}],
+  note:"Read directly from The TriFactory's own event page. Tickets can be cancelled for wallet credit up to the 5 Oct general deadline; after that no changes, cancellations or transfers are possible under any circumstances, and tickets can never be resold."
+},
+{
+  id:"combat-games-2026", date:"2026-10-15", dateEnd:"2026-10-17", name:"The Combat Games",
+  nature:"CrossFit competition", cat:"strength", location:"New Cairo",
+  organiser:"HIT Egypt", status:"open", closes:null, verified:true,
+  format:["Three days, one arena","Divisions for elite, intermediate and aspiring athletes","Registration runs through Circle 21, a CrossFit and functional fitness event platform"],
+  cost:["Priced by division on the Circle 21 registration platform"],
+  included:"",
+  background:"Egypt's longest-running functional fitness competition, and arguably the country's original one — it started around 2015 as an informal throwdown between a small group of athletes with no podiums or medals, grew through 2021–22 into an industry-wide event drawing athletes from across Egypt and beyond, and is now in its tenth year. Run by HIT Egypt out of Concord Gardens, New Cairo, and staffed by athletes, judges and volunteers from the same community. The pitch is explicitly that it is built from within rather than franchised in.",
+  suits:"All three levels are catered for by design — the aspiring division exists for people testing themselves for the first time, and elite is the sharp end of Egyptian CrossFit.",
+  team:"Check the Circle 21 registration page for the 2026 team categories.",
+  links:[{label:"Register",url:"https://circle21.events/combat",primary:true},{label:"Event page",url:"https://www.hitegypt.com/combatgames"},{label:"HIT Egypt on Instagram",url:"https://www.instagram.com/hitegypt/"}],
+  note:"Dates and venue read from HIT Egypt's own page: 15–17 October 2026, New Cairo, registration open. The Circle 21 platform loads its division list and pricing dynamically, so those could not be captured here — open the registration link for current categories and fees. Heavy clash weekend: overlaps IRONMAN 70.3 Sharm, the Ultra Relay Run and the Breast Cancer Run."
+},
+{
+  id:"im703-sharm", date:"2026-10-16", name:"IRONMAN 70.3 Sharm El-Sheikh",
+  nature:"Half triathlon", cat:"tri", location:"Naama Bay, Sharm El-Sheikh",
+  organiser:"IRONMAN", status:"open", closes:null, verified:true,
+  format:["1.9 km swim — single loop, Naama Bay","90 km bike — one loop out along the Dahab Road","21.1 km run — coastal","Race hub and athlete village at The Jaz Hotel"],
+  cost:["Standard IRONMAN 70.3 entry — check the registration page for the current tier"],
+  included:"Full IRONMAN athlete services, timing, aid stations, finisher medal.",
+  background:"New for the 2026 global calendar. IRONMAN raced in Egypt at Sahl Hasheesh from 2021 to 2023; this is the return, relocated to Sinai. The Red Sea swim is famously buoyant and clear, the bike is long straight desert highway framed by mountains — a course that rewards sitting in the aerobars. Sits one week before 70.3 Agadir, so it draws a North Africa season-closer crowd. Expect 28–33°C.",
+  suits:"Experienced endurance athletes only. This is the hardest single day on the Egyptian calendar.",
+  team:"No relay division announced for this race.",
+  links:[{label:"Register",url:"https://www.ironman.com/races/im703-sharm-el-sheikh",primary:true}],
+  note:"Date and course confirmed by IRONMAN's own announcement and multiple endurance-industry outlets."
+},
+{
+  id:"ultra-relay", date:"2026-10-16", dateEnd:"2026-10-17", name:"Ultra Relay Run",
+  nature:"24-hour relay", cat:"road", location:"AUC running track, New Cairo",
+  organiser:"The TriFactory with WAVE", status:"soon", closes:null, verified:true,
+  format:["Two formats. 2-Hour Relay: teams of four, as many laps as possible, 18:00–20:00 Friday","24-Hour Ultra Relay: teams of eight, 18:00 Friday to 18:00 Saturday","Mixed teams must be exactly half male, half female","2-hour mixed: every runner does at least 10 laps. 24-hour: every runner does at least 25 laps","Baton with timing chip, exchanged in a designated transition area","Each 24-hour team gets a 3×3 m tent on the football pitch — sleeping bags, chairs, coolers, food and lighting allowed","Energy drinks and canned coffee are banned. Hot coffee is served all night"],
+  cost:["2-Hour Relay — EGP 2,400 per team (EGP 600 per runner)","24-Hour Ultra Relay — EGP 8,000 per team (EGP 1,000 per runner)","Prices exclude 14% VAT"],
+  included:"Race number, premium race medal, automatic timing, digital race certificate.",
+  background:"A revival of the 24-hour relay that ran at Cairo American College in Maadi through the 80s and 90s, brought back by The TriFactory with a CAC student social-entrepreneurship team. Proceeds fund an ICU facility at the Magdi Yacoub Heart Foundation's new Global Heart Centre. All eight runners must be on site for the full 24 hours — it is as much a campout as a race.",
+  suits:"The 2-hour relay works for almost any fitness level. The 24-hour is a serious commitment but splits eight ways, so no individual leg is heroic.",
+  team:"This is a team-only event. The single best fit on the calendar for a workplace group — four or eight people, shared effort, no one exposed.",
+  links:[{label:"Event details",url:"https://www.thetrifactory.com/Ultrarelayrun",primary:true}],
+  note:"Verified on The TriFactory's own page. Registration listed as opening soon, first come first served until sold out. Note the direct clash: this starts the same day as IRONMAN 70.3 Sharm."
+},
+{
+  id:"breast-cancer-run", date:"2026-10-16", name:"Breast Cancer Run",
+  nature:"Charity run", cat:"road", location:"Cairo — venue announced closer to the date",
+  organiser:"Cairo Runners", status:"soon", closes:null, verified:true,
+  format:["Community street run; distances announced nearer the date"],
+  cost:["Cairo Runners street runs are typically free or low-cost with required registration"],
+  included:"",
+  background:"Cairo Runners' annual breast cancer awareness run, one of the largest turnouts on their calendar — a sea of pink through closed Cairo streets.",
+  suits:"Any level.",
+  team:"Informal.",
+  links:[{label:"Cairo Runners events",url:"https://www.cairorunners.com/our-runs/",primary:true}],
+  note:"Date confirmed as 16 Oct 2026 from Cairo Runners' own 2026 calendar announcement. Distances and venue not yet published."
+},
+{
+  id:"roody-50x", date:"2026-10-24", name:"Roody 50x",
+  nature:"Desert trail", cat:"trail", location:"Wadi Degla Protectorate, Cairo",
+  organiser:"Ultra Ibex", status:"open", closes:null, verified:false,
+  format:["5 km fun run — 10 m gain, 2 h cut-off","10 km — 180 m gain, 2 h cut-off","28 km — 400 m gain, 6 h cut-off","55 km ultra — 800 m gain, 9 h cut-off","Terrain is roughly 70% hard-packed dirt, 30% sand and rock"],
+  cost:["Tiered by distance; the 2025 edition ran roughly EGP 900–1,400 depending on distance and tier"],
+  included:"Race kit collected at the venue on race morning from 04:00. Manned checkpoints with water on every route — all runners must pass through each one.",
+  background:"Run by Ultra Ibex, the events arm of Wadi Ibex, Egypt's first trail-running team. Conservation is baked in: the race doubles as a protectorate clean-up. Wadi Degla is a 12 km canyon southeast of Maadi — genuinely wild terrain twenty minutes from the office.",
+  suits:"The 5 km and 10 km need no trail experience. 28 km and up need real hill legs and 18+.",
+  team:"No team division; popular to enter as a group.",
+  links:[{label:"Event page",url:"https://ultraibex.com/roody50x/",primary:true},{label:"Ultra Ibex",url:"https://ultraibex.com/"}],
+  note:"Format and cut-offs verified from Ultra Ibex's own pages. The 24 Oct 2026 date comes from Sports Events Egypt, not yet from Ultra Ibex — confirm before booking travel."
+},
+{
+  id:"sinai-exodus", date:"2026-11-05", name:"Sinai Exodus Challenge",
+  nature:"Mountain trail", cat:"trail", location:"Sinai",
+  organiser:"Ultra Ibex", status:"tbc", closes:null, verified:false,
+  format:["Multi-distance mountain and desert trail; distances not yet published for 2026"],
+  cost:[], included:"",
+  background:"Part of the Ultra Ibex series. Point-to-point desert and mountain terrain in Sinai, typically run as a weekend trip rather than a day event.",
+  suits:"Experienced trail runners comfortable with remote terrain and self-management.",
+  team:"", links:[{label:"Ultra Ibex races",url:"https://ultraibex.com/our-races/",primary:true}],
+  note:"Listed for 5 Nov 2026 by Sports Events Egypt. Ultra Ibex's own site was unreachable at time of checking — treat date and distances as provisional."
+},
+{
+  id:"alex-marathon", date:"2026-11-06", name:"Alexandria Marathon",
+  nature:"Road marathon", cat:"road", location:"Alexandria",
+  organiser:"—", status:"open", closes:null, verified:false,
+  format:["Marathon, half marathon, 10 km, 5 km, 2 km and a short kids' distance"],
+  cost:["Entry starts around USD 10 via the listing platform"],
+  included:"",
+  background:"Alexandria's own road race, run along the Mediterranean. Smaller and less international than the Cairo and Giza events, with a more local field.",
+  suits:"Anyone — the distance ladder runs from 2 km up to a full marathon.",
+  team:"",
+  links:[{label:"Listing and entry",url:"https://www.ahotu.com/calendar/running/egypt",primary:true}],
+  note:"Only found on aggregator listings. No official organiser page located — verify before paying."
+},
+{
+  id:"diabetes-run", date:"2026-11-13", name:"Diabetes Run",
+  nature:"Charity run", cat:"road", location:"Cairo — venue announced closer to the date",
+  organiser:"Cairo Runners", status:"soon", closes:null, verified:true,
+  format:["Community street run; distances announced nearer the date"],
+  cost:["Cairo Runners street runs are typically free or low-cost with required registration"],
+  included:"",
+  background:"Cairo Runners' World Diabetes Day run, held on closed roads. A regular fixture on their calendar.",
+  suits:"Any level.",
+  team:"Informal.",
+  links:[{label:"Cairo Runners events",url:"https://www.cairorunners.com/our-runs/",primary:true}],
+  note:"Date confirmed as 13 Nov 2026 from Cairo Runners' own 2026 calendar announcement. Falls the day before HYROX Cairo."
+},
+{
+  id:"hyrox-cairo", date:"2026-11-14", dateEnd:"2026-11-15", name:"HYROX Cairo",
+  nature:"Hybrid race", cat:"hybrid", location:"Egypt International Exhibition Center, Hall 4, Nasr City",
+  organiser:"HYROX", status:"soon", closes:null, verified:true,
+  format:["8 × 1 km run, each followed by one workout station","Stations: SkiErg, sled push, sled pull, burpee broad jumps, row, farmer's carry, sandbag lunges, wall balls","Divisions: Open, Pro, Doubles, Mixed Doubles, Relay (4), Adaptive","Sat 14th — Men, Adaptive Men, Pro Women, Pro Men, Mixed Doubles","Sun 15th — Doubles Women, Women, Adaptive Women, Pro Doubles, Doubles Men, Relays","Minimum age 16"],
+  cost:["Not published yet — HYROX lists tickets as coming soon"],
+  included:"Finisher patch, live leaderboard result, split times per station, age-group ceremony, World Championship qualifying slots in some age groups, aid stations.",
+  background:"The first HYROX ever held in Egypt, and the single biggest thing on this calendar. HYROX uses an identical course worldwide, so a Cairo time is directly comparable to London or Abu Dhabi on the global leaderboard — which is exactly what AlphaX, for all its strengths, cannot give you. Venue is 18 km from Cairo airport, straight off the El-Moshir Tantawy axis. Metro Line 3 to Abbasiya or Fairgrounds, then taxi.",
+  suits:"Everyone, via division choice. Relay splits the work four ways and is the obvious entry point for colleagues who would never enter a race alone. Open is achievable for anyone reasonably fit. Pro is heavy.",
+  team:"Yes — Doubles (2) and Relay (4, each doing 2 × 1 km and 2 stations). Strongest team option on the whole calendar.",
+  links:[{label:"Event page and ticket alerts",url:"https://hyrox.com/event/hyrox-cairo/",primary:true},{label:"HYROX Egypt on Instagram",url:"https://www.instagram.com/hyroxegp/"},{label:"Middle East FAQ",url:"https://hyroxme.com/faq/"}],
+  note:"Re-checked on the official HYROX event page today: still 'Ticket sales start soon', no on-sale date given. Sign up for the alert on the event page and follow @hyroxegp — HYROX races routinely sell out within days of the drop. Warning: for the 2026/27 season HYROX has removed event transfers and division changes, so once you book, the ticket type is locked."
+},
+{
+  id:"elgouna-half", date:"2026-11-21", name:"El Gouna Half Marathon",
+  nature:"Coastal road", cat:"road", location:"Abu Tig Marina, El Gouna",
+  organiser:"The TriFactory", status:"open", closes:"2026-11-03", verified:true,
+  format:["21.1 km, 10 km, 5 km, and a 1 km kids' race","All distances start at Abu Tig Marina","Almost entirely flat — the only rises are a few bridges","Three-hour cut-off on every distance","Minimum ages: 8 for the 5K, 12 for the 10K, 16 for the 21K, 5–10 for the kids' race"],
+  cost:["Three pricing phases: lowest-price, early bird, then general. Entry starts around USD 10 on partner platforms"],
+  included:"Race bag, race t-shirt, race number with MyLaps timing strip, sponsor giveaways, expo access.",
+  background:"Running since 2019 and now the Red Sea's flagship road race — over a thousand runners from 45+ countries. Organised by The TriFactory under the Egyptian Athletics Federation, so the timing and course measurement are properly done. The route tours Downtown El Gouna, the golf course, Abydos Marina and Kite Centre Road. El Gouna is 25 km from Hurghada airport.",
+  suits:"Any level. The flat course and 5K option make it the easiest destination race to bring a mixed group to.",
+  team:"No formal team division, but group travel is the norm here.",
+  links:[{label:"Register",url:"https://www.elgounahalfmarathon.com/tickets",primary:true},{label:"Race day info",url:"https://www.elgounahalfmarathon.com/raceday"}],
+  note:"Verified on the organiser's own site. Hard deadline: registration closes Tue 3 Nov and after that no changes, cancellations or transfers are possible."
+},
+{
+  id:"sharm-half", date:"2026-11-28", name:"Sharm El Sheikh Half Marathon",
+  nature:"Nature reserve", cat:"road", location:"Ras Mohamed National Park, Sharm El Sheikh",
+  organiser:"Egyptian Marathon / Event Sports", status:"open", closes:null, verified:true,
+  format:["21.1 km (AIMS certified), 10 km, 5 km","Entire route runs inside Ras Mohamed National Park","MyLaps chip timing on all distances","Expo and race pack pickup Fri 27 Nov, 16:00–20:00, DoubleTree by Hilton Sharks Bay"],
+  cost:["From EGP 700 for Egyptians and Egypt residents","From EUR 40 for international entrants"],
+  included:"T-shirt, bag, tracking, finisher medal, race photography, finisher certificate.",
+  background:"Fifteenth edition. The selling point is the course: mangrove channels, salt lake, sand dunes and Sinai mountains on one side, turquoise water on the other, all inside a UNESCO-listed reserve. Entries are capped in partnership with the Ministry of Environment to protect the site, so it does not scale like the Giza race.",
+  suits:"Any level, though there is no distance below 5 km.",
+  team:"Team tickets available on partner platforms — note you cannot mix team and individual tickets in one transaction.",
+  links:[{label:"Register",url:"https://www.egyptianmarathon.com/events",primary:true}],
+  note:"Date, distances and pricing confirmed on the organiser's own events page. Falls one week after El Gouna — most people pick one."
+},
+{
+  id:"wadi-rayan", date:"2026-12-03", name:"Wadi Rayan Desert Challenge",
+  nature:"Desert trail", cat:"trail", location:"Wadi Rayan, Fayoum",
+  organiser:"Ultra Ibex", status:"tbc", closes:null, verified:false,
+  format:["Desert trail and adventure format; 2026 distances not yet published"],
+  cost:[], included:"",
+  background:"Ultra Ibex's Fayoum event, run across the dunes and lakes of the Wadi Rayan protected area. Typically an overnight trip from Cairo.",
+  suits:"Trail runners; check distances when published.",
+  team:"",
+  links:[{label:"Ultra Ibex races",url:"https://ultraibex.com/our-races/",primary:true}],
+  note:"Date conflict: Sports Events Egypt lists 3 Dec, other compilations list 4–5 Dec. Not yet confirmed by the organiser — do not book travel on this."
+},
+{
+  id:"unstoppable-run", date:"2026-12-11", name:"The Unstoppable Run",
+  nature:"Inclusive run", cat:"road", location:"Cairo — venue announced closer to the date",
+  organiser:"Cairo Runners", status:"soon", closes:null, verified:true,
+  format:["Community run with wheelchair racing alongside runners; distances announced nearer the date"],
+  cost:["Cairo Runners street runs are typically free or low-cost with required registration"],
+  included:"",
+  background:"Cairo Runners' inclusive event, run with wheelchair athletes racing alongside runners on closed roads. Now in its seventh edition and one of the most distinctive events on the Egyptian calendar.",
+  suits:"Any level, and explicitly designed to be inclusive of athletes with disabilities.",
+  team:"Informal.",
+  links:[{label:"Cairo Runners events",url:"https://www.cairorunners.com/our-runs/",primary:true}],
+  note:"Date confirmed as 11 Dec 2026 from Cairo Runners' own 2026 calendar announcement. Same day as the Pyramids Half 5K — you cannot do both."
+},
+{
+  id:"pyramids-half", date:"2026-12-11", dateEnd:"2026-12-12", name:"Marakez Pyramids Half Marathon",
+  nature:"Flagship road", cat:"road", location:"Giza Plateau — start and finish at the Pyramids visitor centre",
+  organiser:"The TriFactory", status:"open", closes:"2026-11-02", verified:true,
+  format:["Fri 11 Dec — 5 km","Sat 12 Dec — 10 km and 21.1 km","10 km and 21 km are AIMS certified","Fully pedestrianised course, MyLaps timing","5 km is flat; 10 km and 21 km roll, including the long descent to the Sphinx and the climb back to the finish"],
+  cost:["Phased pricing. Lowest tier closed 16 Apr, early bird closed 30 Jun. General admission opened 1 Jul and closes 2 Nov","Roughly USD 80–95 on partner platforms"],
+  included:"Race pack, expo access, timing, finisher medal. Racemate is the official training app. Turkish Airlines offers discounted fares for participants.",
+  background:"Eighth year, and the biggest running race in Egypt. The course passes ancient temples, the Sphinx, and Khufu, Khafre and Menkaure. It expanded to a two-day format so the 5 km gets its own morning. This is the one race on the calendar that international runners fly in specifically for.",
+  suits:"Any level, and the single best event to bring non-runners to — the 5 km on Friday is a separate, flat, low-pressure day.",
+  team:"No formal team division; large corporate groups are common.",
+  links:[{label:"Register",url:"https://www.thetrifactory.com/MarakezPyramidsHalfMarathon2026",primary:true}],
+  note:"Verified on The TriFactory's own page and Egyptian business press. General registration closes Mon 2 Nov — the earliest hard deadline on this calendar."
+},
+{
+  id:"luxor-marathon", date:"2027-01-08", name:"Egyptian Marathon, Luxor",
+  nature:"Historic marathon", cat:"road", location:"Hatshepsut Temple, Luxor",
+  organiser:"Egyptian Marathon / Event Sports", status:"open", closes:null, verified:true,
+  format:["Full marathon (AIMS certified), half marathon, 12 km, 5 km","Starts at Hatshepsut Temple and runs through Luxor's historic sites along the Nile"],
+  cost:["From EGP 700 for Egyptians and Egypt residents","From EUR 80 for international entrants"],
+  included:"T-shirt, bag, tracking, finisher medal, photography, certificate.",
+  background:"Thirty-fourth edition — the oldest race in the country by a wide margin and the only AIMS-certified full marathon in Egypt. January in Upper Egypt gives close to perfect marathon weather.",
+  suits:"The 5 km and 12 km welcome anyone. The full marathon is the one genuine marathon target on the domestic calendar.",
+  team:"",
+  links:[{label:"Register",url:"https://www.egyptianmarathon.net/",primary:true}],
+  note:"Confirmed on the organiser's site for Fri 8 Jan 2027."
+},
+{
+  id:"ironstar", date:"2027-02-05", dateEnd:"2027-02-06", name:"IRONSTAR Egypt",
+  nature:"Triathlon", cat:"tri", location:"Sharm El Sheikh",
+  organiser:"IRONSTAR", status:"open", closes:null, verified:false,
+  format:["Triathlon plus standalone swim and run events","Run distances around 1 km, 5 km and 5.5 km alongside the tri"],
+  cost:["Entry from around USD 20 on listing platforms"],
+  included:"",
+  background:"A multi-format weekend in Sharm combining triathlon, open-water swimming and road running — a softer, cheaper alternative to the October IRONMAN at the same destination.",
+  suits:"Triathletes at any distance, and swimmers who want an event that isn't a full tri.",
+  team:"",
+  links:[{label:"Listing and entry",url:"https://www.ahotu.com/calendar/running/egypt",primary:true}],
+  note:"Found on aggregator listings only. Verify with the organiser before committing."
+}
+];
+
+/* Watchlist — real leads, unconfirmed. Move up when you can verify one. */
+const WATCH = [
+{name:"Tough Mudder Egypt 5K", q:"Annual, next ~May 2027", text:"Runs every May at CityGate by Qatari Diar in New Cairo. 5 km with 17 world-class obstacles — Everest, Funky Monkey, Arctic Enema, Mud Mile, Mudderhorn. Ages 13+. Explicitly not a race: skipping an obstacle carries no penalty. The 2026 edition was 22 May and priced EGP 600 early-bird rising to EGP 1,200 late. Watch for the 2027 date around February.", link:"https://www.thetrifactory.com/ToughMudder5K", linkLabel:"Tough Mudder 5K"},
+{name:"Saqqara Half Marathon", q:"Annual, next ~Feb 2027", text:"TriFactory's second #RaceThroughHistory event, now grown from a 5K into a full half marathon. Start, finish and awards directly beneath the Step Pyramid; the 21K and 10K reach the Abusir pyramids. Nearly 2,000 runners from 60+ nationalities. The 2026 edition was 13 Feb at EGP 1,000–1,500. Car passes are capped at 200 and buses run from ten Cairo pickup points.", link:"https://www.thetrifactory.com/SaqqaraHalfMarathon2026", linkLabel:"Saqqara Half Marathon"},
+{name:"Madinaty Half Marathon", q:"Annual, next ~Jun 2027", text:"East Cairo's biggest road race, sixth edition in 2026. Fully closed roads inside Madinaty, 5K, 10K, 21K plus a 2K family run in the Open Air Mall. 3-hour cut-off, MyLaps timing, Egyptian Athletics Federation supervision. The 2026 edition was 5 Jun at EGP 800–1,100.", link:"https://www.thetrifactory.com/MadinatyHalfMarathon2026", linkLabel:"Madinaty Half Marathon"},
+{name:"D-Bay Adventure Festival", q:"Annual, next ~Jul 2027", text:"TriFactory with Ascent Climbing Egypt at D-Bay on the North Coast. Bouldering competition in General and Advanced categories — Advanced finals run under full IFSC World Cup format — plus an obstacle course, dyno tree challenge, ice bath workshops, food and music. Real prize money: EGP 30,000 for an Advanced win. The 2026 edition was 3 Jul.", link:"https://www.thetrifactory.com/AdventureFestival", linkLabel:"D-Bay Adventure Festival"},
+{name:"Somabay Endurance Festival", q:"Annual, next ~May 2027", text:"Egypt's largest multi-sport gathering, running since 2014. Olympic, sprint and super-sprint triathlon plus a 10 km and youth races, at Soma Bay south of Hurghada. The 2026 edition was 8–9 May.", link:"https://www.thetrifactory.com/SomabayEnduranceFestival2026", linkLabel:"Somabay Endurance Festival"},
+{name:"Climbing — Ascent Climbing Egypt", q:"Year-round, comps announced ad hoc", text:"Egypt's competitive bouldering runs through Ascent, who co-run the D-Bay Adventure Festival with The TriFactory. Their competitions use General and Advanced categories, with Advanced finals under full IFSC World Cup rules. Open to climbers based in Egypt and Arab nationals or residents. If anyone here climbs, this is the scene.", link:"https://www.thetrifactory.com/AdventureFestival", linkLabel:"Adventure Festival"},
+{name:"Bodybuilding and physique", q:"Federation-run, no open calendar", text:"Egypt has an active IFBB-affiliated federation scene, but it runs through club and federation channels rather than a published open-entry calendar, so there is nothing reliable to list here. Ask at your gym if anyone is competing — that is genuinely how these dates circulate.", link:null, linkLabel:null},
+{name:"Olympic weightlifting and powerlifting", q:"Federation-only", text:"Egypt is a serious weightlifting nation and regularly hosts continental and world championships — Ismailia held both the African and World Junior championships in May 2026. These are national-team events, not open entry. For open lifting competition, ELFIT LIFT IT is the realistic route.", link:"https://www.elfiteg.com/elfit-lift-it-2/", linkLabel:"ELFIT Lift It"},
+{name:"Open Water Swimming World Cup", q:"Elite, annual at Somabay", text:"World Aquatics opens its global open water season at Somabay every year — the 2026 stop was 27-28 March, the fourth consecutive year Egypt has hosted the opener. Elite 10 km racing, not open entry, but excellent to watch and the 2027 season opener is expected there again.", link:"https://www.worldaquatics.com/competitions/5155/world-aquatics-open-water-swimming-world-cup-2026", linkLabel:"World Aquatics"},
+{name:"Cairo Half Marathon", q:"Feb 2027, date TBA", text:"Cairo Runners' flagship: 21 km, 10 km, 5 km and a family run. The 2026 edition ran in early February, so expect a similar window. A warm-up street run usually precedes it.", link:"https://cairohalfmarathon.com/", linkLabel:"cairohalfmarathon.com"},
+{name:"MOVE Festival — Cali Coast", q:"No date, no listing", text:"Nothing indexed anywhere on the open web. MOVE Gym runs a seasonal Cali Coast site, so this is plausibly an Instagram-only event of theirs.", link:"https://www.instagram.com/move.gym.fitness/", linkLabel:"Check @move.gym.fitness"},
+{name:"TMG Crit League", q:"Source unverified", text:"Reported as a three-round closed-road criterium series around Cairo compounds. No corroborating source found. Worth ten minutes on cairocrit.com if anyone here rides.", link:"https://www.cairocrit.com/", linkLabel:"cairocrit.com"},
+{name:"Pharaohs Pyramids Trail", q:"Aggregator only", text:"A 46 km walk and 69 km trail near Giza in mid-December has been reported, but no organiser page exists. Do not treat as real yet.", link:null, linkLabel:null},
+{name:"Rest of the TriFactory calendar", q:"Dates roll annually", text:"Also on their books and worth watching: FACE Charity Run, One Run, The Run for Upper Egypt, The Glow Run, Ramadan Relay Run, Row the Nile, Tough Mudder Kids at Ramla, the Solasi Wellbeing Festival and TriPadel tournaments. Most are announced two to three months out.", link:"https://www.thetrifactory.com/", linkLabel:"The TriFactory"},
+{name:"Spartan World Championship", q:"Regional — Abu Dhabi", text:"Not in Egypt, but 19–22 Nov 2026 in the Abu Dhabi dunes, five days after HYROX Cairo. Listed here only because it is the nearest large OCR event to the region.", link:"https://www.spartan.com/en/races/abu-dhabi", linkLabel:"Spartan Abu Dhabi"}
+];
+
+/* ============================================================
+   Rendering
+   ============================================================ */
+const MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const CATS={road:"Road running",trail:"Trail",hybrid:"Hybrid fitness",ocr:"Obstacle",tri:"Triathlon",cycling:"Cycling",swim:"Swimming",strength:"Strength & CrossFit"};
+const today=new Date(); today.setHours(0,0,0,0);
+
+const d=s=>{const [y,m,dd]=s.split("-").map(Number);return new Date(y,m-1,dd);};
+const days=s=>Math.round((d(s)-today)/86400000);
+const fmt=s=>{const x=d(s);return x.getDate()+" "+MON[x.getMonth()]+" "+x.getFullYear();};
+
+document.getElementById("today").textContent=fmt(today.toISOString().slice(0,10));
+
+/* clash detection: another event within 14 days */
+const upcoming=EVENTS.filter(e=>e.dateTBD||days(e.date)>=0).sort((a,b)=>{
+  if(a.dateTBD!==b.dateTBD) return a.dateTBD?-1:1;
+  return d(a.date)-d(b.date);
+});
+const dated=upcoming.filter(e=>!e.dateTBD);
+dated.forEach((e,i)=>{
+  const prev=dated[i-1], next=dated[i+1];
+  const near=[];
+  if(prev&&Math.abs(days(e.date)-days(prev.date))<=14) near.push(prev.name);
+  if(next&&Math.abs(days(next.date)-days(e.date))<=14) near.push(next.name);
+  e._clash=near.length?near.length+" race"+(near.length>1?"s":"")+" within 14 days":null;
+});
+
+document.getElementById("vcount").textContent=upcoming.length;
+document.getElementById("wcount").textContent=WATCH.length;
+
+/* deadline ticker */
+const dl=upcoming.filter(e=>e.closes&&days(e.closes)>=0).sort((a,b)=>d(a.closes)-d(b.closes));
+document.getElementById("deadlines").innerHTML = dl.length ? dl.map(e=>`
+  <div class="dl">
+    <div class="n">${days(e.closes)}<small>days left</small></div>
+    <div class="e">${e.name}</div>
+    <div class="d">Registration closes ${fmt(e.closes)}</div>
+  </div>`).join("") + `
+  <div class="dl" style="border-left-color:var(--graphite)">
+    <div class="n" style="color:var(--ink)">?<small>not on sale</small></div>
+    <div class="e">HYROX Cairo</div>
+    <div class="d">Tickets not released yet — set an alert</div>
+  </div>`
+  : `<div class="dl"><div class="e">No published deadlines in range.</div></div>`;
+
+/* filters */
+const FILTERS=[["all","All events"],["open","Open now"],["team","Team option"],["hybrid","Hybrid"],["strength","Strength & CrossFit"],["ocr","Obstacle"],["road","Road"],["trail","Trail"],["cycling","Cycling"],["swim","Swimming"],["tri","Triathlon"]];
+let active="all";
+document.getElementById("chips").innerHTML=FILTERS.map(([k,l])=>
+  `<button class="chip" data-f="${k}" aria-pressed="${k==='all'}">${l}</button>`).join("");
+
+function matches(e){
+  if(active==="all") return true;
+  if(active==="open") return e.status==="open";
+  if(active==="team") return !!e.team;
+  return e.cat===active;
+}
+
+function icsFor(e){
+  const start=e.date.replace(/-/g,"");
+  const endD=new Date(d(e.dateEnd||e.date)); endD.setDate(endD.getDate()+1);
+  const end=endD.toISOString().slice(0,10).replace(/-/g,"");
+  const body=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Egypt Race Calendar//EN","BEGIN:VEVENT",
+    "UID:"+e.id+"@egypt-race-calendar","DTSTART;VALUE=DATE:"+start,"DTEND;VALUE=DATE:"+end,
+    "SUMMARY:"+e.name,"LOCATION:"+e.location.replace(/,/g,"\\,"),
+    "DESCRIPTION:"+(e.nature+" — "+(e.links[0]?e.links[0].url:"")).replace(/,/g,"\\,"),
+    "END:VEVENT","END:VCALENDAR"].join("\r\n");
+  const url=URL.createObjectURL(new Blob([body],{type:"text/calendar"}));
+  const a=document.createElement("a"); a.href=url; a.download=e.id+".ics"; a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1500);
+}
+
+function block(title,content){
+  if(!content||(Array.isArray(content)&&!content.length))
+    return `<div class="block"><h4>${title}</h4><div class="empty">Not published yet.</div></div>`;
+  const inner=Array.isArray(content)?`<ul>${content.map(c=>`<li>${c}</li>`).join("")}</ul>`:`<p>${content}</p>`;
+  return `<div class="block"><h4>${title}</h4>${inner}</div>`;
+}
+
+function render(){
+  const list=upcoming.filter(matches);
+  document.getElementById("resultCount").textContent=
+    list.length+" of "+upcoming.length+" events"+(active==="all"?"":" · filtered");
+  document.getElementById("list").innerHTML = list.length ? list.map(e=>{
+    const dt=d(e.date), n=days(e.date);
+    const pill = e.status==="open"?`<span class="pill open">Open</span>`
+      : e.status==="soon"?`<span class="pill soon">Not on sale</span>`
+      : `<span class="pill tbc">Date TBC</span>`;
+    const cd = e.dateTBD
+      ? `<div class="countdown urgent">Date needed</div>`
+      : e.closes&&days(e.closes)>=0
+      ? `<div class="countdown ${days(e.closes)<=45?"urgent":""}">Closes in ${days(e.closes)} days</div>`
+      : `<div class="countdown">${n} days away</div>`;
+    const range = e.dateTBD ? "Date not published — fill it in"
+      : e.dateEnd ? fmt(e.date)+" – "+fmt(e.dateEnd) : fmt(e.date);
+    const bibHTML = e.dateTBD
+      ? `<div class="num" style="font-size:15px;letter-spacing:.04em">TBC</div><div class="mon">date</div>`
+      : `<div class="num">${dt.getDate()}</div><div class="mon">${MON[dt.getMonth()]}</div><div class="yr">${dt.getFullYear()}</div>`;
+    return `
+<details class="row" id="${e.id}">
+  <summary>
+    <div class="bib${e.verified?"":" unv"}">${bibHTML}</div>
+    <div class="main-cell">
+      <div class="name">${e.name}</div>
+      <div class="sub">${e.location}</div>
+      <div class="tags">
+        <span class="tag nature">${e.nature}</span>
+        <span class="tag">${CATS[e.cat]}</span>
+        ${e.team?`<span class="tag">Team option</span>`:``}
+        ${e._clash?`<span class="tag clash">${e._clash}</span>`:``}
+      </div>
+    </div>
+    <div class="right-cell">${pill}${cd}<div class="chev"><span></span></div></div>
+  </summary>
+  <div class="detail">
+    <div class="perf"></div>
+    <div class="detail-grid">
+      <div></div>
+      <div>
+        <div class="detail-body">
+          ${block("What it is",e.background)}
+          ${block("Format",e.format)}
+          ${block("Cost",e.cost)}
+          ${block("Who it suits",e.suits)}
+          ${block("Team and relay",e.team)}
+          ${block("What you get",e.included)}
+          <div class="block kv" style="grid-column:1/-1">
+            <div><b>Date</b> ${range}</div>
+            <div><b>Where</b> ${e.location}</div>
+            <div><b>Organiser</b> ${e.organiser}</div>
+            <div><b>Registration</b> ${e.closes?"closes "+fmt(e.closes):(e.status==="open"?"open, no published deadline":"not open yet")}</div>
+          </div>
+          <div class="links">
+            ${e.links.map(l=>`<a class="btn ${l.primary?"primary":""}" href="${l.url}" target="_blank" rel="noopener">${l.label} ↗</a>`).join("")}
+            <button class="btn" data-ics="${e.id}">Add to calendar</button>
+          </div>
+          <div class="prov">
+            <span class="badge ${e.verified?"v":"p"}">${e.verified?"Verified on organiser site":"Secondary source only"}</span>
+            Checked 1 Sep 2026. ${e.note}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</details>`;}).join("")
+  : `<div class="empty-state">Nothing matches that filter. Try “All events”.</div>`;
+}
+
+document.getElementById("chips").addEventListener("click",ev=>{
+  const b=ev.target.closest(".chip"); if(!b) return;
+  active=b.dataset.f;
+  document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",c===b));
+  render();
+});
+document.getElementById("list").addEventListener("click",ev=>{
+  const b=ev.target.closest("[data-ics]"); if(!b) return;
+  ev.preventDefault(); icsFor(EVENTS.find(x=>x.id===b.dataset.ics));
+});
+
+document.getElementById("watchlist").innerHTML=WATCH.map(w=>`
+  <div class="wcard">
+    <div class="wn">${w.name}</div>
+    <div class="wq">${w.q}</div>
+    <p>${w.text}</p>
+    ${w.link?`<a href="${w.link}" target="_blank" rel="noopener">${w.linkLabel} ↗</a>`:""}
+  </div>`).join("");
+
+render();
+</script>
+</body>
+</html>
